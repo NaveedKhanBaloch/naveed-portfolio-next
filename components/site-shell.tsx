@@ -9,7 +9,42 @@ type SiteShellProps = {
   posts: BlogPost[];
 };
 
+function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwork" }) {
+  if (name === "linkedin") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.56A1.96 1.96 0 1 0 3.24 4.94a1.96 1.96 0 0 0 3.92 0ZM20.44 13c0-3.42-1.82-5.01-4.25-5.01-1.96 0-2.83 1.08-3.32 1.84V8.5H9.5c.04.88 0 11.5 0 11.5h3.37v-6.42c0-.34.02-.68.13-.92.27-.68.89-1.38 1.92-1.38 1.35 0 1.89 1.03 1.89 2.54V20h3.37V13Z" />
+      </svg>
+    );
+  }
+
+  if (name === "github") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-1.03-.02-1.87-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.56 2.35 1.11 2.92.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05A9.33 9.33 0 0 1 12 6.86c.85 0 1.71.12 2.51.36 1.9-1.33 2.74-1.05 2.74-1.05.56 1.42.21 2.47.11 2.73.64.72 1.02 1.63 1.02 2.75 0 3.95-2.34 4.82-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z" />
+      </svg>
+    );
+  }
+
+  if (name === "scholar") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3Zm0 13-7-3.82V17l7 4 7-4v-4.82L12 16Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M17.52 3H6.48A3.48 3.48 0 0 0 3 6.48v11.04A3.48 3.48 0 0 0 6.48 21h11.04A3.48 3.48 0 0 0 21 17.52V6.48A3.48 3.48 0 0 0 17.52 3ZM8.4 17.4H5.94V9.86H8.4v7.54Zm-1.23-8.6a1.42 1.42 0 1 1 0-2.84 1.42 1.42 0 0 1 0 2.84Zm11.1 8.6H15.8v-3.67c0-.88-.02-2-.2-2.44-.19-.45-.63-.9-1.3-.9-.68 0-1.22.45-1.42.9-.07.18-.09.43-.09.69v5.42H10.3V9.86h2.36v1.03h.03c.33-.62 1.13-1.28 2.33-1.28 2.49 0 2.95 1.63 2.95 3.75v4.04Z" />
+    </svg>
+  );
+}
+
 export function SiteShell({ content, posts }: SiteShellProps) {
+  const primaryCtaIsExternal = content.hero.primaryCtaHref.startsWith("http");
+  const calendarIsExternal = content.contact.calendarHref.startsWith("http");
+
   return (
     <div className="site-shell">
       <div className="site-backdrop" aria-hidden="true">
@@ -33,8 +68,13 @@ export function SiteShell({ content, posts }: SiteShellProps) {
           <Link href="/academia">Academia</Link>
           <Link href="/blog">Blog</Link>
         </nav>
-        <a className="button button-primary" href={content.hero.primaryCtaHref}>
-          Let&apos;s Talk
+        <a
+          className="button button-primary"
+          href={content.hero.primaryCtaHref}
+          target={primaryCtaIsExternal ? "_blank" : undefined}
+          rel={primaryCtaIsExternal ? "noreferrer" : undefined}
+        >
+          Book a Call
         </a>
       </header>
 
@@ -46,13 +86,19 @@ export function SiteShell({ content, posts }: SiteShellProps) {
               <h1>{content.hero.subtitle}</h1>
               <p className="hero-summary">{content.hero.summary}</p>
               <div className="hero-actions">
-                <a className="button button-primary" href={content.hero.primaryCtaHref}>
+                <a
+                  className="button button-primary"
+                  href={content.hero.primaryCtaHref}
+                  target={primaryCtaIsExternal ? "_blank" : undefined}
+                  rel={primaryCtaIsExternal ? "noreferrer" : undefined}
+                >
                   {content.hero.primaryCtaLabel}
                 </a>
                 <a className="button button-secondary" href={content.hero.secondaryCtaHref}>
                   {content.hero.secondaryCtaLabel}
                 </a>
               </div>
+              <p className="hero-cta-note">Best for founders and teams evaluating AI strategy, delivery, or product direction.</p>
               <div className="hero-stat-strip">
                 {content.metrics.map((metric) => (
                   <article key={metric.label} className="hero-stat-card">
@@ -189,8 +235,8 @@ export function SiteShell({ content, posts }: SiteShellProps) {
             </div>
           </div>
           <div className="timeline">
-            {content.experience.map((item) => (
-              <article key={`${item.role}-${item.organization}`} className="timeline-item">
+            {content.experience.map((item, index) => (
+              <article key={`${item.role}-${item.organization}-${item.period}-${index}`} className="timeline-item">
                 <div>
                   <strong className="timeline-period">{item.period}</strong>
                   <h3>{item.role}</h3>
@@ -296,8 +342,13 @@ export function SiteShell({ content, posts }: SiteShellProps) {
             </p>
           </div>
           <div className="cta-actions">
-            <a className="button button-primary" href={`mailto:${content.contact.email}`}>
-              {content.contact.email}
+            <a
+              className="button button-primary"
+              href={content.contact.calendarHref}
+              target={calendarIsExternal ? "_blank" : undefined}
+              rel={calendarIsExternal ? "noreferrer" : undefined}
+            >
+              Schedule a Call
             </a>
             <a className="button button-secondary" href={content.contact.cvHref}>
               Download CV
@@ -312,20 +363,18 @@ export function SiteShell({ content, posts }: SiteShellProps) {
           <p>{content.hero.title}</p>
         </div>
         <div className="footer-links">
-          <a href={content.social.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
+          <a className="footer-icon-link" href={content.social.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <SocialIcon name="linkedin" />
           </a>
-          <a href={content.social.github} target="_blank" rel="noreferrer">
-            GitHub
+          <a className="footer-icon-link" href={content.social.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <SocialIcon name="github" />
           </a>
-          <a href={content.social.scholar} target="_blank" rel="noreferrer">
-            Scholar
+          <a className="footer-icon-link" href={content.social.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar">
+            <SocialIcon name="scholar" />
           </a>
-          <Link href="/academia">Academia</Link>
-          <a href={content.social.upwork} target="_blank" rel="noreferrer">
-            Upwork
+          <a className="footer-icon-link" href={content.social.upwork} target="_blank" rel="noreferrer" aria-label="Upwork">
+            <SocialIcon name="upwork" />
           </a>
-          <Link href="/admin/login">Admin</Link>
         </div>
       </footer>
     </div>

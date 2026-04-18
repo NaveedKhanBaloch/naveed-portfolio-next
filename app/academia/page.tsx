@@ -11,38 +11,46 @@ export default async function AcademiaPage() {
         <Link href="/" className="text-link">
           Back to portfolio
         </Link>
-        <div>
-          <p className="eyebrow">Academia</p>
-          <h1>Research publications</h1>
-          <p>
-            Selected publication records curated from publisher pages and citation-tracking sources. Citation figures shown
-            here use the linked source on each entry and should be treated as source-specific unless verified directly on
-            Google Scholar.
-          </p>
-        </div>
-        <div className="hero-actions">
-          <a className="button button-primary" href={content.social.scholar} target="_blank" rel="noreferrer">
-            View Google Scholar
-          </a>
+        <div className="simple-header-top">
+          <div className="simple-header-copy">
+            <p className="eyebrow">Academia</p>
+            <h1>Research publications</h1>
+            <p>
+              Selected publication records curated from publisher pages and citation-tracking sources. Citation figures shown
+              here use the linked source on each entry and should be treated as source-specific unless verified directly on
+              Google Scholar.
+            </p>
+          </div>
+          <div className="hero-actions">
+            <a className="button button-primary" href={content.social.scholar} target="_blank" rel="noreferrer">
+              View Google Scholar
+            </a>
+          </div>
         </div>
       </header>
 
       <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Overview</p>
+            <h2>Selected Publications</h2>
+          </div>
+        </div>
         <div className="metrics-grid">
           <article className="metric-card">
-            <strong>{publications.length}</strong>
-            <h2>Publications listed</h2>
-            <p>Research papers currently curated into the portfolio.</p>
+            <strong>894</strong>
+            <h2>Citations</h2>
+            <p>757 since 2020</p>
           </article>
           <article className="metric-card">
-            <strong>{publications.reduce((sum, item) => sum + (item.citationCount || 0), 0)}</strong>
-            <h2>Tracked citations</h2>
-            <p>Total shown here from the citation sources listed per paper.</p>
+            <strong>15</strong>
+            <h2>h-index</h2>
+            <p>14 since 2020</p>
           </article>
           <article className="metric-card">
-            <strong>{Math.max(...publications.map((item) => item.year))}</strong>
-            <h2>Latest paper year</h2>
-            <p>Recent publication represented on this page.</p>
+            <strong>17</strong>
+            <h2>i10-index</h2>
+            <p>15 since 2020</p>
           </article>
         </div>
       </section>
