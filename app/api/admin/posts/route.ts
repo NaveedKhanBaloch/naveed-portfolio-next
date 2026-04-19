@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const post = (await request.json()) as BlogPost;
+  const { previousSlug: _previousSlug, ...post } = (await request.json()) as BlogPost & { previousSlug?: string | null };
   await saveBlogPost(post);
   return NextResponse.json({ post, message: "Post created." });
 }

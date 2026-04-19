@@ -1,26 +1,36 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { BlogPost, PortfolioContent, Project, ExperienceItem, Service } from "@/lib/types";
+import { BlogEditor } from "@/components/editor/BlogEditor";
+import { renderPostContent } from "@/lib/markdown";
+import type { BlogComment, BlogPost, PortfolioContent, Project, ExperienceItem, Service } from "@/lib/types";
 
 type AdminDashboardProps = {
   initialContent: PortfolioContent;
   initialPosts: BlogPost[];
+  initialComments: BlogComment[];
   storageMode: string;
   blobEnabled: boolean;
   defaultPublishedAt: string;
 };
+
+type EditorTab = "compose" | "preview" | "comments";
 
 function emptyPost(defaultPublishedAt: string): BlogPost {
   return {
     slug: "",
     title: "",
     excerpt: "",
+    metaDescription: "",
+    suggestedUrl: "",
+    primaryKeyword: "",
+    secondaryKeywords: [],
     content: "",
     coverImage: "",
     tags: [],
     publishedAt: defaultPublishedAt,
     readTime: "4 min read",
+    allowComments: true,
     status: "draft"
   };
 }
@@ -32,14 +42,17 @@ function updateArrayItem<T>(items: T[], index: number, nextValue: T) {
 export function AdminDashboard({
   initialContent,
   initialPosts,
+  initialComments,
   storageMode,
   blobEnabled,
   defaultPublishedAt
 }: AdminDashboardProps) {
   const [content, setContent] = useState<PortfolioContent>(initialContent);
   const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
+  const [comments, setComments] = useState<BlogComment[]>(initialComments);
   const [selectedSlug, setSelectedSlug] = useState<string>(initialPosts[0]?.slug || "__new__");
   const [editor, setEditor] = useState<BlogPost>(initialPosts[0] || emptyPost(defaultPublishedAt));
+  const [editorTab, setEditorTab] = useState<EditorTab>("compose");
   const [status, setStatus] = useState("");
   const [uploadStatus, setUploadStatus] = useState("");
 
@@ -50,14 +63,20 @@ export function AdminDashboard({
     return posts.find((post) => post.slug === selectedSlug) || null;
   }, [posts, selectedSlug]);
 
+  const selectedPostComments = useMemo(() => {
+    if (!selectedPost) {
+      return [];
+    }
+    return comments.filter((comment) => comment.postSlug === selectedPost.slug);
+  }, [comments, selectedPost]);
+
+  const visibleComments = selectedPost ? selectedPostComments : comments;
+  const previewContent = useMemo(() => editor.content, [editor.content]);
+
   function resetEditor(post?: BlogPost | null) {
-    setEditor(
-      post
-        ? {
-            ...post
-          }
-        : emptyPost(defaultPublishedAt)
-    );
+    const nextPost = post ? { ...post } : emptyPost(defaultPublishedAt);
+    setEditor(nextPost);
+    setEditorTab("compose");
   }
 
   async function saveContent() {
@@ -76,10 +95,17 @@ export function AdminDashboard({
 
   async function savePost() {
     setStatus("Saving post...");
+    const normalizedSlug = editor.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, "");
     const payload = {
       ...editor,
-      slug: editor.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, ""),
-      tags: editor.tags
+      previousSlug: selectedPost?.slug || null,
+      slug: normalizedSlug,
+      suggestedUrl: editor.suggestedUrl.trim() || `/blog/${normalizedSlug}`,
+      metaDescription: editor.metaDescription.trim() || editor.excerpt.trim(),
+      primaryKeyword: editor.primaryKeyword.trim() || editor.tags[0] || "",
+      secondaryKeywords: editor.secondaryKeywords,
+      tags: editor.tags,
+      content: editor.content
     };
 
     const method = selectedPost ? "PUT" : "POST";
@@ -136,12 +162,40 @@ export function AdminDashboard({
 
     const data = (await response.json()) as { url?: string; error?: string; message?: string };
     if (data.url) {
-      setEditor((current) => ({ ...current, coverImage: data.url || current.coverImage }));
       setUploadStatus(`Uploaded: ${data.url}`);
-      return;
+      return data.url;
     }
 
     setUploadStatus(data.error || data.message || "Upload failed.");
+    return null;
+  }
+
+  async function updateCommentStatus(id: string, nextStatus: "pending" | "approved") {
+    const response = await fetch(`/api/admin/comments/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ status: nextStatus })
+    });
+
+    const data = (await response.json()) as { comments?: BlogComment[]; message?: string; error?: string };
+    if (data.comments) {
+      setComments(data.comments);
+    }
+    setStatus(data.message || data.error || "Finished.");
+  }
+
+  async function removeComment(id: string) {
+    const response = await fetch(`/api/admin/comments/${id}`, {
+      method: "DELETE"
+    });
+
+    const data = (await response.json()) as { comments?: BlogComment[]; message?: string; error?: string };
+    if (data.comments) {
+      setComments(data.comments);
+    }
+    setStatus(data.message || data.error || "Finished.");
   }
 
   function updateProject(index: number, nextProject: Project) {
@@ -482,6 +536,18 @@ export function AdminDashboard({
           </aside>
 
           <div className="post-editor">
+            <div className="editor-tabs">
+              <button type="button" className={`editor-tab ${editorTab === "compose" ? "active" : ""}`} onClick={() => setEditorTab("compose")}>
+                Compose
+              </button>
+              <button type="button" className={`editor-tab ${editorTab === "preview" ? "active" : ""}`} onClick={() => setEditorTab("preview")}>
+                Live Preview
+              </button>
+              <button type="button" className={`editor-tab ${editorTab === "comments" ? "active" : ""}`} onClick={() => setEditorTab("comments")}>
+                Comments {selectedPost ? `(${selectedPostComments.length})` : `(${comments.length})`}
+              </button>
+            </div>
+
             <div className="admin-grid">
               <label className="field field-full">
                 <span>Title</span>
@@ -503,6 +569,15 @@ export function AdminDashboard({
                 <span>Excerpt</span>
                 <textarea rows={3} value={editor.excerpt} onChange={(event) => setEditor((current) => ({ ...current, excerpt: event.target.value }))} />
               </label>
+              <label className="field field-full">
+                <span>Meta description</span>
+                <textarea
+                  rows={3}
+                  value={editor.metaDescription}
+                  onChange={(event) => setEditor((current) => ({ ...current, metaDescription: event.target.value }))}
+                  placeholder="155-160 character search description"
+                />
+              </label>
               <label className="field">
                 <span>Cover image</span>
                 <input
@@ -512,10 +587,52 @@ export function AdminDashboard({
                 />
               </label>
               <label className="field">
+                <span>Suggested URL</span>
+                <input
+                  value={editor.suggestedUrl}
+                  onChange={(event) => setEditor((current) => ({ ...current, suggestedUrl: event.target.value }))}
+                  placeholder="/blog/post-slug"
+                />
+              </label>
+              <label className="field">
+                <span>Primary keyword</span>
+                <input
+                  value={editor.primaryKeyword}
+                  onChange={(event) => setEditor((current) => ({ ...current, primaryKeyword: event.target.value }))}
+                  placeholder="Primary SEO keyword"
+                />
+              </label>
+              <label className="field">
+                <span>Secondary keywords</span>
+                <input
+                  value={editor.secondaryKeywords.join(", ")}
+                  onChange={(event) =>
+                    setEditor((current) => ({
+                      ...current,
+                      secondaryKeywords: event.target.value
+                        .split(",")
+                        .map((keyword) => keyword.trim())
+                        .filter(Boolean)
+                    }))
+                  }
+                  placeholder="keyword one, keyword two"
+                />
+              </label>
+              <label className="field">
                 <span>Status</span>
                 <select value={editor.status} onChange={(event) => setEditor((current) => ({ ...current, status: event.target.value as BlogPost["status"] }))}>
                   <option value="draft">Draft</option>
                   <option value="published">Published</option>
+                </select>
+              </label>
+              <label className="field">
+                <span>Comments</span>
+                <select
+                  value={editor.allowComments ? "enabled" : "disabled"}
+                  onChange={(event) => setEditor((current) => ({ ...current, allowComments: event.target.value === "enabled" }))}
+                >
+                  <option value="enabled">Enabled</option>
+                  <option value="disabled">Disabled</option>
                 </select>
               </label>
               <label className="field field-full">
@@ -534,40 +651,163 @@ export function AdminDashboard({
                   placeholder="AI, RAG, Product Strategy"
                 />
               </label>
-              <label className="field field-full">
-                <span>Markdown content</span>
-                <textarea rows={16} value={editor.content} onChange={(event) => setEditor((current) => ({ ...current, content: event.target.value }))} />
-              </label>
             </div>
 
-            <div className="upload-panel">
-              <div>
-                <strong>Asset upload</strong>
-                <p>Upload a blog cover image to Vercel Blob, then it will populate the cover image field.</p>
+            {editorTab === "compose" ? (
+              <div className="wp-editor-layout">
+                <div className="wp-editor-main">
+                  <BlogEditor
+                    content={editor.content}
+                    onChange={(nextContent) => setEditor((current) => ({ ...current, content: nextContent }))}
+                    onUpload={uploadAsset}
+                  />
+                  {uploadStatus ? <p className="form-status">{uploadStatus}</p> : null}
+                </div>
+
+                <aside className="wp-editor-sidebar">
+                  <div className="wp-panel">
+                    <div className="wp-panel-header">
+                      <h3>Publish</h3>
+                    </div>
+                    <div className="wp-panel-body">
+                      <div className="wp-publish-actions">
+                        <button className="button button-secondary" type="button" onClick={savePost}>
+                          Save Draft
+                        </button>
+                        <button className="button button-secondary" type="button" onClick={() => setEditorTab("preview")}>
+                          Preview
+                        </button>
+                      </div>
+                      <div className="wp-meta-list">
+                        <p>
+                          <strong>Status:</strong> {editor.status === "published" ? "Published" : "Draft"}
+                        </p>
+                        <p>
+                          <strong>Comments:</strong> {editor.allowComments ? "Enabled" : "Disabled"}
+                        </p>
+                        <p>
+                          <strong>Publish date:</strong> {editor.publishedAt || "Not set"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="wp-panel-footer">
+                      {selectedPost ? (
+                        <button className="button button-danger" type="button" onClick={removePost}>
+                          Move to Trash
+                        </button>
+                      ) : <span />}
+                      <button className="button button-primary" type="button" onClick={savePost}>
+                        {editor.status === "published" ? "Update" : "Publish"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="wp-panel">
+                    <div className="wp-panel-header">
+                      <h3>Post settings</h3>
+                    </div>
+                    <div className="wp-panel-body wp-panel-stack">
+                      <label className="field">
+                        <span>Cover image</span>
+                        <input
+                          value={editor.coverImage}
+                          onChange={(event) => setEditor((current) => ({ ...current, coverImage: event.target.value }))}
+                          placeholder="https://... or /images/..."
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Meta description</span>
+                        <textarea
+                          rows={3}
+                          value={editor.metaDescription}
+                          onChange={(event) => setEditor((current) => ({ ...current, metaDescription: event.target.value }))}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </aside>
               </div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (file) {
-                    void uploadAsset(file);
-                  }
-                }}
-              />
-            </div>
+            ) : null}
+
+            {editorTab === "preview" ? (
+              <div className="post-preview">
+                <div className="article-header">
+                  <p className="meta-row">
+                    <span>{editor.publishedAt || "Draft date"}</span>
+                    <span>{editor.readTime}</span>
+                  </p>
+                  <h1>{editor.title || "Untitled post preview"}</h1>
+                  <p className="article-excerpt">{editor.excerpt || "Your excerpt will appear here."}</p>
+                  <div className="tag-row">
+                    {editor.tags.map((tag) => (
+                      <span key={tag} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {editor.coverImage ? <img src={editor.coverImage} alt={editor.title || "Preview cover"} className="article-image" /> : null}
+                <div className="article-content">{renderPostContent(previewContent)}</div>
+              </div>
+            ) : null}
+
+            {editorTab === "comments" ? (
+              <div className="comments-admin">
+                <div className="section-heading">
+                  <div>
+                    <p className="eyebrow">Comments</p>
+                    <h2>{selectedPost ? "Reader responses for this post" : "All blog comments"}</h2>
+                  </div>
+                </div>
+                {visibleComments.length ? (
+                  <div className="comments-list">
+                    {visibleComments.map((comment) => (
+                      <article key={comment.id} className="comment-card">
+                        <div className="comment-top">
+                          <div>
+                            <strong>{comment.name}</strong>
+                            <p>{selectedPost ? comment.email : `${comment.postSlug} · ${comment.email}`}</p>
+                          </div>
+                          <span className={`comment-status comment-status-${comment.status}`}>{comment.status}</span>
+                        </div>
+                        <p>{comment.message}</p>
+                        <div className="editor-actions">
+                          {comment.status === "pending" ? (
+                            <button className="button button-primary" type="button" onClick={() => void updateCommentStatus(comment.id, "approved")}>
+                              Approve
+                            </button>
+                          ) : (
+                            <button className="button button-secondary" type="button" onClick={() => void updateCommentStatus(comment.id, "pending")}>
+                              Move to pending
+                            </button>
+                          )}
+                          <button className="button button-danger" type="button" onClick={() => void removeComment(comment.id)}>
+                            Delete
+                          </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="form-status">No comments have been submitted yet.</p>
+                )}
+              </div>
+            ) : null}
+
             {uploadStatus ? <p className="form-status">{uploadStatus}</p> : null}
 
-            <div className="editor-actions">
-              <button className="button button-primary" type="button" onClick={savePost}>
-                Save post
-              </button>
-              {selectedPost ? (
-                <button className="button button-danger" type="button" onClick={removePost}>
-                  Delete post
+            {editorTab !== "comments" ? (
+              <div className="editor-actions">
+                <button className="button button-primary" type="button" onClick={savePost}>
+                  Save post
                 </button>
-              ) : null}
-            </div>
+                {selectedPost ? (
+                  <button className="button button-danger" type="button" onClick={removePost}>
+                    Delete post
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
       </section>

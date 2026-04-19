@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BlogComments } from "@/components/blog-comments";
 import { formatBlogDate } from "@/lib/date";
-import { renderSimpleMarkdown } from "@/lib/markdown";
-import type { BlogPost, PortfolioContent } from "@/lib/types";
+import { renderPostContent } from "@/lib/markdown";
+import type { BlogComment, BlogPost, PortfolioContent } from "@/lib/types";
 
 type SiteShellProps = {
   content: PortfolioContent;
   posts: BlogPost[];
 };
+
+const BLOG_IMAGE_FALLBACK = "/images/interviewAI.webp";
 
 function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwork" }) {
   if (name === "linkedin") {
@@ -396,7 +399,7 @@ export function BlogListing({ posts }: { posts: BlogPost[] }) {
       <div className="blog-list-page">
         {posts.map((post) => (
           <article key={post.slug} className="blog-list-item">
-            <Image src={post.coverImage} alt={post.title} width={900} height={520} />
+            <Image src={post.coverImage || BLOG_IMAGE_FALLBACK} alt={post.title} width={900} height={520} />
             <div>
               <p className="meta-row">
                 <span>{formatBlogDate(post.publishedAt, "long")}</span>
@@ -405,6 +408,7 @@ export function BlogListing({ posts }: { posts: BlogPost[] }) {
               <h2>{post.title}</h2>
               <p>{post.excerpt}</p>
               <div className="tag-row">
+                {post.primaryKeyword ? <span className="tag tag-accent">{post.primaryKeyword}</span> : null}
                 {post.tags.map((tag) => (
                   <span className="tag" key={tag}>
                     {tag}
@@ -422,7 +426,7 @@ export function BlogListing({ posts }: { posts: BlogPost[] }) {
   );
 }
 
-export function BlogArticle({ post }: { post: BlogPost }) {
+export function BlogArticle({ post, comments }: { post: BlogPost; comments: BlogComment[] }) {
   return (
     <article className="article-shell">
       <header className="article-header">
@@ -443,8 +447,9 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           ))}
         </div>
       </header>
-      <Image src={post.coverImage} alt={post.title} width={1200} height={680} className="article-image" />
-      <div className="article-content">{renderSimpleMarkdown(post.content)}</div>
+      <Image src={post.coverImage || BLOG_IMAGE_FALLBACK} alt={post.title} width={1200} height={680} className="article-image" />
+      <div className="article-content">{renderPostContent(post.content)}</div>
+      <BlogComments postSlug={post.slug} initialComments={comments} allowComments={post.allowComments} />
     </article>
   );
 }

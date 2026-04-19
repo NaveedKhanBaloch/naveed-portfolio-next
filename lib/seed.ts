@@ -453,6 +453,11 @@ export const seedBlogPosts: BlogPost[] = [
     title: "Designing Agentic AI for Real Business Workflows",
     excerpt:
       "A practical look at where agents add real value and where simpler automation is the smarter choice.",
+    metaDescription:
+      "Learn where agentic AI creates real business value, where simpler automation is better, and how to design trustworthy multi-step AI workflows.",
+    suggestedUrl: "/blog/designing-agentic-ai-for-real-business-workflows",
+    primaryKeyword: "agentic AI workflows",
+    secondaryKeywords: ["business automation", "LLM systems", "AI product strategy"],
     content: `# Designing Agentic AI for Real Business Workflows
 
 Agentic systems become useful when they are attached to a concrete workflow, clear tools, and measurable outcomes.
@@ -474,6 +479,7 @@ Start with the smallest workflow that creates clear leverage. Then add autonomy 
     tags: ["Agentic AI", "LLM Systems", "Product Strategy"],
     publishedAt: "2026-04-10",
     readTime: "4 min read",
+    allowComments: true,
     status: "published"
   },
   {
@@ -481,6 +487,11 @@ Start with the smallest workflow that creates clear leverage. Then add autonomy 
     title: "RAG Systems That Stay Trustworthy in Production",
     excerpt:
       "Retrieval is easy to demo and much harder to keep accurate after launch. Here are the habits that help.",
+    metaDescription:
+      "A practical guide to building production-ready RAG systems with stronger retrieval quality, fresher data, and better evaluation habits.",
+    suggestedUrl: "/blog/rag-systems-that-stay-trustworthy-in-production",
+    primaryKeyword: "production RAG systems",
+    secondaryKeywords: ["retrieval augmented generation", "AI evaluation", "knowledge systems"],
     content: `# RAG Systems That Stay Trustworthy in Production
 
 Retrieval quality depends on more than a vector database. It depends on source quality, chunking strategy, metadata, and evaluation discipline.
@@ -499,6 +510,7 @@ Treat RAG as a product system instead of a prompt feature. Track data freshness,
     tags: ["RAG", "Evaluation", "Production AI"],
     publishedAt: "2026-04-05",
     readTime: "3 min read",
+    allowComments: true,
     status: "published"
   },
   {
@@ -506,6 +518,11 @@ Treat RAG as a product system instead of a prompt feature. Track data freshness,
     title: "From Research to Shipping AI Products",
     excerpt:
       "What changes when you move from experiments and papers into systems clients can depend on.",
+    metaDescription:
+      "What it takes to move from AI research and experimentation to production systems clients can trust and teams can maintain.",
+    suggestedUrl: "/blog/from-research-to-shipping-ai-products",
+    primaryKeyword: "shipping AI products",
+    secondaryKeywords: ["AI delivery", "production AI", "research to product"],
     content: `# From Research to Shipping AI Products
 
 Research gives us depth. Product work adds constraints. Good AI delivery needs both.
@@ -527,6 +544,7 @@ Good delivery is not just about model quality. It is about whether the full work
     tags: ["AI Delivery", "Product Engineering", "Research"],
     publishedAt: "2026-03-28",
     readTime: "4 min read",
+    allowComments: true,
     status: "published"
   }
 ];

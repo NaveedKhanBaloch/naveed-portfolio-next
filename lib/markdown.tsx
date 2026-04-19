@@ -8,6 +8,21 @@ function renderParagraph(text: string, key: string) {
   );
 }
 
+function renderImage(line: string, key: string) {
+  const match = line.match(/^!\[(.*?)\]\((.*?)\)$/);
+  if (!match) {
+    return null;
+  }
+
+  const [, alt, src] = match;
+  return (
+    <figure key={key} className="md-figure">
+      <img className="md-image" src={src} alt={alt || "Blog image"} />
+      {alt ? <figcaption className="md-caption">{alt}</figcaption> : null}
+    </figure>
+  );
+}
+
 export function renderSimpleMarkdown(content: string): ReactNode[] {
   const lines = content.split("\n");
   const output: ReactNode[] = [];
@@ -42,6 +57,12 @@ export function renderSimpleMarkdown(content: string): ReactNode[] {
 
     flushList();
 
+    const image = renderImage(line, `img-${index}`);
+    if (image) {
+      output.push(image);
+      return;
+    }
+
     if (line.startsWith("# ")) {
       output.push(
         <h1 key={`h1-${index}`} className="md-h1">
@@ -74,4 +95,15 @@ export function renderSimpleMarkdown(content: string): ReactNode[] {
 
   flushList();
   return output;
+}
+
+export function renderPostContent(content: string) {
+  const trimmed = content.trim();
+  const looksLikeHtml = /^<([a-z][\w-]*)(\s|>)/i.test(trimmed);
+
+  if (looksLikeHtml) {
+    return <div className="tiptap-content" dangerouslySetInnerHTML={{ __html: content }} />;
+  }
+
+  return renderSimpleMarkdown(content);
 }

@@ -9,7 +9,10 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const post = (await request.json()) as BlogPost;
+  const { previousSlug, ...post } = (await request.json()) as BlogPost & { previousSlug?: string | null };
+  if (previousSlug && previousSlug !== post.slug) {
+    await deleteBlogPost(previousSlug);
+  }
   await saveBlogPost(post);
   return NextResponse.json({ post, message: "Post updated." });
 }
