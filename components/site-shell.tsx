@@ -68,6 +68,27 @@ export function SiteShell({ content }: SiteShellProps) {
         >
           Book a Call
         </a>
+        <details className="mobile-nav">
+          <summary className="mobile-nav-toggle" aria-label="Open navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </summary>
+          <div className="mobile-nav-panel">
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <Link href="/academia">Academia</Link>
+            <a
+              className="button button-primary mobile-nav-cta"
+              href={content.hero.primaryCtaHref}
+              target={primaryCtaIsExternal ? "_blank" : undefined}
+              rel={primaryCtaIsExternal ? "noreferrer" : undefined}
+            >
+              Book a Call
+            </a>
+          </div>
+        </details>
       </header>
 
       <main>
