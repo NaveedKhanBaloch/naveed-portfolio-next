@@ -70,13 +70,15 @@ p {
   width: min(1220px, calc(100% - 32px));
   margin: 24px auto;
   position: relative;
+  isolation: isolate;
 }
 
 .site-backdrop {
-  position: absolute;
-  inset: -4rem 0 auto;
+  position: fixed;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 
 .backdrop-orb {
@@ -100,6 +102,53 @@ p {
   right: -2rem;
   background: rgba(124, 92, 255, 0.16);
   animation-delay: -4s;
+}
+
+.backdrop-aurora {
+  position: absolute;
+  inset: 2rem auto auto 50%;
+  width: min(72rem, 120%);
+  height: 22rem;
+  border-radius: 999px;
+  opacity: 0.42;
+  filter: blur(34px);
+  mix-blend-mode: screen;
+  transform-origin: center;
+  animation: auroraShift 16s ease-in-out infinite;
+}
+
+.aurora-one {
+  background:
+    radial-gradient(circle at 20% 40%, rgba(86, 194, 255, 0.34), transparent 30%),
+    radial-gradient(circle at 60% 45%, rgba(124, 92, 255, 0.24), transparent 34%),
+    linear-gradient(90deg, rgba(86, 194, 255, 0.14), rgba(124, 92, 255, 0.18), rgba(35, 211, 174, 0.12));
+  translate: -54% 0;
+}
+
+.aurora-two {
+  inset: 14rem auto auto 44%;
+  width: min(56rem, 110%);
+  height: 16rem;
+  background:
+    radial-gradient(circle at 35% 50%, rgba(35, 211, 174, 0.18), transparent 32%),
+    radial-gradient(circle at 68% 42%, rgba(86, 194, 255, 0.2), transparent 28%),
+    linear-gradient(90deg, rgba(124, 92, 255, 0.1), rgba(86, 194, 255, 0.14), rgba(255, 255, 255, 0.06));
+  opacity: 0.3;
+  animation-delay: -6s;
+}
+
+.backdrop-sparkles {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 62% 58%, rgba(86, 194, 255, 0.4) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 68%, rgba(124, 92, 255, 0.38) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 84% 72%, rgba(255, 255, 255, 0.32) 0 1px, transparent 1.5px);
+  background-size: 100% 100%;
+  opacity: 0.55;
+  animation: twinkleDrift 18s linear infinite;
 }
 
 .backdrop-grid {
@@ -1523,6 +1572,30 @@ select:focus {
   }
 }
 
+@keyframes auroraShift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
+  }
+
+  50% {
+    transform: translate3d(2%, 18px, 0) rotate(6deg) scale(1.06);
+  }
+}
+
+@keyframes twinkleDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.42;
+  }
+
+  50% {
+    transform: translate3d(-1.5%, 10px, 0);
+    opacity: 0.68;
+  }
+}
+
 @keyframes floatCard {
   0%,
   100% {
@@ -1546,6 +1619,8 @@ select:focus {
 
 @media (prefers-reduced-motion: reduce) {
   .backdrop-orb,
+  .backdrop-aurora,
+  .backdrop-sparkles,
   .hero-card,
   .logo-track {
     animation: none;

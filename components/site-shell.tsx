@@ -43,6 +43,9 @@ export function SiteShell({ content }: SiteShellProps) {
       <div className="site-backdrop" aria-hidden="true">
         <span className="backdrop-orb orb-one"></span>
         <span className="backdrop-orb orb-two"></span>
+        <span className="backdrop-aurora aurora-one"></span>
+        <span className="backdrop-aurora aurora-two"></span>
+        <span className="backdrop-sparkles"></span>
         <span className="backdrop-grid"></span>
       </div>
 
