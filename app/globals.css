@@ -233,6 +233,12 @@ p {
   fill: currentColor;
 }
 
+.footer-icon-image {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 .footer-icon-link:hover {
   transform: translateY(-2px);
   border-color: rgba(86, 194, 255, 0.38);

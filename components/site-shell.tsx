@@ -334,6 +334,9 @@ export function SiteShell({ content }: SiteShellProps) {
           <a className="footer-icon-link" href={content.social.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar">
             <SocialIcon name="scholar" />
           </a>
+          <a className="footer-icon-link" href={content.social.upwork} target="_blank" rel="noreferrer" aria-label="Upwork">
+            <img className="footer-icon-image" src="/icons/upwork-icon.svg" alt="" aria-hidden="true" width="24" height="24" />
+          </a>
         </div>
       </footer>
     </div>

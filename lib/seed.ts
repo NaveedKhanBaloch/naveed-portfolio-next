@@ -436,7 +436,8 @@ export const seedPortfolioContent: PortfolioContent = {
   social: {
     linkedin: "https://www.linkedin.com/in/naveed-khan-baloch-1954518/",
     github: "https://github.com/NaveedKhanBaloch",
-    scholar: "https://scholar.google.com/citations?hl=en&user=iHF3OyUAAAAJ"
+    scholar: "https://scholar.google.com/citations?hl=en&user=iHF3OyUAAAAJ",
+    upwork: "https://www.upwork.com/freelancers/~01c766a0a5b535c55f"
   },
   contact: {
     email: "naveedk09@gmail.com",

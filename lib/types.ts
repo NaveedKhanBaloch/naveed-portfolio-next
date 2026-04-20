@@ -2,6 +2,7 @@ export type SocialLinks = {
   linkedin: string;
   github: string;
   scholar: string;
+  upwork: string;
 };
 
 export type HeroContent = {
