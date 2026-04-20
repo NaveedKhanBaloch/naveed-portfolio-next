@@ -261,7 +261,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="content-section">
+        <section id="approach" className="content-section">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Approach</p>
