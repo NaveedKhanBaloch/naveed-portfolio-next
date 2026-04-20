@@ -149,7 +149,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="metrics-section">
+        <section id="results" className="metrics-section">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Proof of work</p>
@@ -167,7 +167,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="content-section content-two-col">
+        <section id="about" className="content-section content-two-col">
           <div>
             <p className="eyebrow">About</p>
             <h2>{content.about.headline}</h2>
@@ -282,7 +282,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="content-section">
+        <section id="principles" className="content-section">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Principles</p>
@@ -299,7 +299,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="content-section">
+        <section id="testimonials" className="content-section">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Testimonials</p>
@@ -319,7 +319,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section className="cta-panel">
+        <section id="contact" className="cta-panel">
           <div>
             <p className="eyebrow">Contact</p>
             <h2>Let&apos;s build together</h2>

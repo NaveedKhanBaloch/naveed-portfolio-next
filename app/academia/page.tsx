@@ -16,9 +16,8 @@ export default async function AcademiaPage() {
             <p className="eyebrow">Academia</p>
             <h1>Research publications</h1>
             <p>
-              Selected publication records curated from publisher pages and citation-tracking sources. Citation figures shown
-              here use the linked source on each entry and should be treated as source-specific unless verified directly on
-              Google Scholar.
+              Proven research depth that helps clients de-risk AI decisions, choose stronger technical directions, and build with more confidence.
+              If you need someone who can turn advanced AI expertise into practical business outcomes, this is the foundation behind my work.
             </p>
           </div>
           <div className="hero-actions">
