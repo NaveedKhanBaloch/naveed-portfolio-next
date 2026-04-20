@@ -1,16 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BlogComments } from "@/components/blog-comments";
-import { formatBlogDate } from "@/lib/date";
-import { renderPostContent } from "@/lib/markdown";
-import type { BlogComment, BlogPost, PortfolioContent } from "@/lib/types";
+import type { PortfolioContent } from "@/lib/types";
 
 type SiteShellProps = {
   content: PortfolioContent;
-  posts: BlogPost[];
 };
-
-const BLOG_IMAGE_FALLBACK = "/images/interviewAI.webp";
 
 function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwork" }) {
   if (name === "linkedin") {
@@ -29,6 +23,18 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwor
     );
   }
 
+  if (name === "upwork") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" />
+        <path
+          d="M7.25 8.25v4.55c0 1.77 1.18 2.95 2.95 2.95s2.95-1.18 2.95-2.95V8.25h-1.9v4.46c0 .74-.43 1.18-1.05 1.18s-1.05-.44-1.05-1.18V8.25h-1.9Zm8.3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm-.95 3v4.5h1.9v-4.5h-1.9Z"
+          fill="var(--surface)"
+        />
+      </svg>
+    );
+  }
+
   if (name === "scholar") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -39,12 +45,12 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwor
 
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M17.52 3H6.48A3.48 3.48 0 0 0 3 6.48v11.04A3.48 3.48 0 0 0 6.48 21h11.04A3.48 3.48 0 0 0 21 17.52V6.48A3.48 3.48 0 0 0 17.52 3ZM8.4 17.4H5.94V9.86H8.4v7.54Zm-1.23-8.6a1.42 1.42 0 1 1 0-2.84 1.42 1.42 0 0 1 0 2.84Zm11.1 8.6H15.8v-3.67c0-.88-.02-2-.2-2.44-.19-.45-.63-.9-1.3-.9-.68 0-1.22.45-1.42.9-.07.18-.09.43-.09.69v5.42H10.3V9.86h2.36v1.03h.03c.33-.62 1.13-1.28 2.33-1.28 2.49 0 2.95 1.63 2.95 3.75v4.04Z" />
+      <circle cx="12" cy="12" r="10" />
     </svg>
   );
 }
 
-export function SiteShell({ content, posts }: SiteShellProps) {
+export function SiteShell({ content }: SiteShellProps) {
   const primaryCtaIsExternal = content.hero.primaryCtaHref.startsWith("http");
   const calendarIsExternal = content.contact.calendarHref.startsWith("http");
 
@@ -69,7 +75,6 @@ export function SiteShell({ content, posts }: SiteShellProps) {
           <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
           <Link href="/academia">Academia</Link>
-          <Link href="/blog">Blog</Link>
         </nav>
         <a
           className="button button-primary"
@@ -289,36 +294,6 @@ export function SiteShell({ content, posts }: SiteShellProps) {
         <section className="content-section">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Writing</p>
-              <h2>Latest posts</h2>
-            </div>
-            <Link href="/blog" className="button button-secondary">
-              View all posts
-            </Link>
-          </div>
-          <div className="card-grid">
-            {posts.map((post) => (
-              <article key={post.slug} className="blog-card">
-                <Image src={post.coverImage} alt={post.title} width={800} height={480} />
-                <div>
-                  <p className="meta-row">
-                    <span>{post.readTime}</span>
-                    <span>{formatBlogDate(post.publishedAt, "short")}</span>
-                  </p>
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                  <Link href={`/blog/${post.slug}`} className="text-link">
-                    Read article
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="content-section">
-          <div className="section-heading">
-            <div>
               <p className="eyebrow">Testimonials</p>
               <h2>Client feedback</h2>
             </div>
@@ -381,75 +356,5 @@ export function SiteShell({ content, posts }: SiteShellProps) {
         </div>
       </footer>
     </div>
-  );
-}
-
-export function BlogListing({ posts }: { posts: BlogPost[] }) {
-  return (
-    <div className="simple-page">
-      <header className="simple-header">
-        <Link href="/" className="text-link">
-          Back to portfolio
-        </Link>
-        <div>
-          <p className="eyebrow">Blog</p>
-          <h1>Thoughts on AI systems, delivery, and product strategy</h1>
-        </div>
-      </header>
-      <div className="blog-list-page">
-        {posts.map((post) => (
-          <article key={post.slug} className="blog-list-item">
-            <Image src={post.coverImage || BLOG_IMAGE_FALLBACK} alt={post.title} width={900} height={520} />
-            <div>
-              <p className="meta-row">
-                <span>{formatBlogDate(post.publishedAt, "long")}</span>
-                <span>{post.readTime}</span>
-              </p>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt}</p>
-              <div className="tag-row">
-                {post.primaryKeyword ? <span className="tag tag-accent">{post.primaryKeyword}</span> : null}
-                {post.tags.map((tag) => (
-                  <span className="tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <Link href={`/blog/${post.slug}`} className="button button-secondary">
-                Read post
-              </Link>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function BlogArticle({ post, comments }: { post: BlogPost; comments: BlogComment[] }) {
-  return (
-    <article className="article-shell">
-      <header className="article-header">
-        <Link href="/blog" className="text-link">
-          Back to blog
-        </Link>
-        <p className="meta-row">
-          <span>{formatBlogDate(post.publishedAt, "long")}</span>
-          <span>{post.readTime}</span>
-        </p>
-        <h1>{post.title}</h1>
-        <p className="article-excerpt">{post.excerpt}</p>
-        <div className="tag-row">
-          {post.tags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </header>
-      <Image src={post.coverImage || BLOG_IMAGE_FALLBACK} alt={post.title} width={1200} height={680} className="article-image" />
-      <div className="article-content">{renderPostContent(post.content)}</div>
-      <BlogComments postSlug={post.slug} initialComments={comments} allowComments={post.allowComments} />
-    </article>
   );
 }

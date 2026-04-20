@@ -13,7 +13,7 @@ export default async function AdminLoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <p className="eyebrow">Private admin</p>
-        <h1>Login to manage your portfolio and blog</h1>
+        <h1>Login to manage your portfolio</h1>
         <p>
           Set `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` in Vercel project settings to secure this dashboard.
         </p>

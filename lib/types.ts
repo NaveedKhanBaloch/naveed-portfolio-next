@@ -111,33 +111,3 @@ export type PortfolioContent = {
   social: SocialLinks;
   contact: ContactContent;
 };
-
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  metaDescription: string;
-  suggestedUrl: string;
-  primaryKeyword: string;
-  secondaryKeywords: string[];
-  content: string;
-  coverImage: string;
-  tags: string[];
-  publishedAt: string;
-  readTime: string;
-  allowComments: boolean;
-  status: "published" | "draft";
-};
-
-export type BlogCommentStatus = "pending" | "approved";
-
-export type BlogComment = {
-  id: string;
-  postSlug: string;
-  name: string;
-  email: string;
-  website?: string;
-  message: string;
-  createdAt: string;
-  status: BlogCommentStatus;
-};
