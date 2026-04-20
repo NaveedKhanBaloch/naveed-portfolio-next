@@ -6,7 +6,7 @@ type SiteShellProps = {
   content: PortfolioContent;
 };
 
-function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwork" }) {
+function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" }) {
   if (name === "linkedin") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -23,18 +23,6 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwor
     );
   }
 
-  if (name === "upwork") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" />
-        <path
-          d="M7.25 8.25v4.55c0 1.77 1.18 2.95 2.95 2.95s2.95-1.18 2.95-2.95V8.25h-1.9v4.46c0 .74-.43 1.18-1.05 1.18s-1.05-.44-1.05-1.18V8.25h-1.9Zm8.3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm-.95 3v4.5h1.9v-4.5h-1.9Z"
-          fill="var(--surface)"
-        />
-      </svg>
-    );
-  }
-
   if (name === "scholar") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -43,11 +31,7 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" | "upwor
     );
   }
 
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
+  return null;
 }
 
 export function SiteShell({ content }: SiteShellProps) {
@@ -349,9 +333,6 @@ export function SiteShell({ content }: SiteShellProps) {
           </a>
           <a className="footer-icon-link" href={content.social.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar">
             <SocialIcon name="scholar" />
-          </a>
-          <a className="footer-icon-link" href={content.social.upwork} target="_blank" rel="noreferrer" aria-label="Upwork">
-            <SocialIcon name="upwork" />
           </a>
         </div>
       </footer>
