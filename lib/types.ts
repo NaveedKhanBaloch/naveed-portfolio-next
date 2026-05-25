@@ -42,6 +42,30 @@ export type Project = {
   image: string;
   tech: string[];
   href?: string;
+  caseStudy?: {
+    clientType: string;
+    timeline: string;
+    role: string;
+    team: string;
+    status: string;
+    overview: string;
+    challenge: string;
+    goals: string[];
+    constraints: string[];
+    responsibilities: string[];
+    architecture: string[];
+    process: {
+      title: string;
+      description: string;
+    }[];
+    decisions: {
+      title: string;
+      description: string;
+    }[];
+    outcomes: string[];
+    deliverables: string[];
+    nextSteps: string[];
+  };
 };
 
 export type ExperienceItem = {

@@ -237,6 +237,9 @@ export function SiteShell({ content }: SiteShellProps) {
                       </span>
                     ))}
                   </div>
+                  <Link className="button button-secondary project-link" href={`/projects/${project.slug}`}>
+                    Read case study
+                  </Link>
                 </div>
               </article>
             ))}

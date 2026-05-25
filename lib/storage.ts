@@ -11,6 +11,21 @@ function getContentFilePath() {
   return process.env.CONTENT_FILE_PATH || DEFAULT_CONTENT_FILE;
 }
 
+function mergeWithSeed(content: PortfolioContent) {
+  const storedProjectsBySlug = new Map(content.projects.map((project) => [project.slug, project]));
+  const seedProjectSlugs = new Set(seedPortfolioContent.projects.map((project) => project.slug));
+  const mergedSeedProjects = seedPortfolioContent.projects.map((project) => ({
+    ...storedProjectsBySlug.get(project.slug),
+    ...project
+  }));
+  const customProjects = content.projects.filter((project) => !seedProjectSlugs.has(project.slug));
+
+  return {
+    ...content,
+    projects: [...mergedSeedProjects, ...customProjects]
+  };
+}
+
 export function getStorageMode() {
   return `file:${getContentFilePath()}`;
 }
@@ -18,7 +33,7 @@ export function getStorageMode() {
 export async function getPortfolioContent() {
   try {
     const file = await readFile(getContentFilePath(), "utf8");
-    const content = JSON.parse(file) as PortfolioContent;
+    const content = mergeWithSeed(JSON.parse(file) as PortfolioContent);
     memoryContent = content;
     return content;
   } catch (error) {
