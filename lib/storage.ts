@@ -1,37 +1,39 @@
-import { kv } from "@vercel/kv";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
 import { seedPortfolioContent } from "@/lib/seed";
 import type { PortfolioContent } from "@/lib/types";
 
-const CONTENT_KEY = "portfolio:content";
+const DEFAULT_CONTENT_FILE = "data/portfolio-content.json";
 
 let memoryContent = structuredClone(seedPortfolioContent);
 
-function hasKv() {
-  return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+function getContentFilePath() {
+  return process.env.CONTENT_FILE_PATH || DEFAULT_CONTENT_FILE;
 }
 
 export function getStorageMode() {
-  return hasKv() ? "vercel-kv" : "memory-demo";
+  return `file:${getContentFilePath()}`;
 }
 
 export async function getPortfolioContent() {
-  if (!hasKv()) {
+  try {
+    const file = await readFile(getContentFilePath(), "utf8");
+    const content = JSON.parse(file) as PortfolioContent;
+    memoryContent = content;
+    return content;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+      console.error("Unable to read stored portfolio content.", error);
+    }
+
     return memoryContent;
   }
-
-  const stored = await kv.get<PortfolioContent>(CONTENT_KEY);
-  if (!stored) {
-    await kv.set(CONTENT_KEY, seedPortfolioContent);
-    return seedPortfolioContent;
-  }
-
-  return stored;
 }
 
 export async function savePortfolioContent(content: PortfolioContent) {
   memoryContent = content;
-  if (hasKv()) {
-    await kv.set(CONTENT_KEY, content);
-  }
+  const contentFile = getContentFilePath();
+  await mkdir(path.dirname(contentFile), { recursive: true });
+  await writeFile(contentFile, JSON.stringify(content, null, 2), "utf8");
   return content;
 }
