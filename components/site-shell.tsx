@@ -54,6 +54,24 @@ export function SiteShell({ content }: SiteShellProps) {
 
       <main>
         <section className="hero-section">
+          <div className="hero-motion-field" aria-hidden="true">
+            <span className="hero-circuit-line hero-circuit-line-one"></span>
+            <span className="hero-circuit-line hero-circuit-line-two"></span>
+            <span className="hero-circuit-line hero-circuit-line-three"></span>
+            <span className="hero-wireframe hero-wireframe-primary">
+              <span></span>
+              <span></span>
+            </span>
+            <span className="hero-wireframe hero-wireframe-secondary">
+              <span></span>
+              <span></span>
+            </span>
+            <div className="hero-node-field">
+              {Array.from({ length: 28 }).map((_, index) => (
+                <span key={index}></span>
+              ))}
+            </div>
+          </div>
           <div className="hero-grid">
             <div className="hero-copy">
               <p className="eyebrow">AI Engineer • Researcher • Builder</p>
