@@ -221,7 +221,7 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
           <div className="project-list">
             {content.projects.map((project) => (
-              <article key={project.slug} className="project-card">
+              <article key={project.slug} className={`project-card project-${project.slug}`}>
                 <div className="project-image">
                   <Image src={project.image} alt={project.name} width={900} height={640} />
                 </div>
