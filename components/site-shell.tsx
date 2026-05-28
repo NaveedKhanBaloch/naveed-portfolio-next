@@ -38,6 +38,20 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "scholar" }) {
 export function SiteShell({ content }: SiteShellProps) {
   const primaryCtaIsExternal = content.hero.primaryCtaHref.startsWith("http");
   const calendarIsExternal = content.contact.calendarHref.startsWith("http");
+  const capabilityStack = [
+    {
+      label: "AI & LLM",
+      tools: ["OpenAI", "LangGraph", "PyTorch"],
+    },
+    {
+      label: "Backend",
+      tools: ["Python", "APIs", "Supabase"],
+    },
+    {
+      label: "Delivery",
+      tools: ["Docker", "AWS", "Coolify"],
+    },
+  ];
 
   return (
     <div className="site-shell">
@@ -114,14 +128,17 @@ export function SiteShell({ content }: SiteShellProps) {
             </div>
           </div>
 
-          <div className="logo-marquee" aria-label="Technology stack">
-            <div className="logo-track">
-              {[...content.hero.stack, ...content.hero.stack].map((item, index) => (
-                <span key={`${item}-${index}`} className="logo-pill">
-                  {item}
-                </span>
-              ))}
-            </div>
+          <div className="capability-stack" aria-label="Technology capabilities">
+            {capabilityStack.map((group) => (
+              <article key={group.label} className="capability-stack-group">
+                <span>{group.label}</span>
+                <div>
+                  {group.tools.map((tool) => (
+                    <strong key={tool}>{tool}</strong>
+                  ))}
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -165,29 +182,6 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
         </section>
 
-        <section id="services" className="content-section">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Services</p>
-              <h2>What I do</h2>
-            </div>
-          </div>
-          <div className="card-grid">
-            {content.services.map((service) => (
-              <article key={service.title} className="feature-card">
-                <p className="card-index">0{content.services.indexOf(service) + 1}</p>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <ul className="feature-list">
-                  {service.outcomes.map((outcome) => (
-                    <li key={outcome}>{outcome}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section id="projects" className="content-section">
           <div className="section-heading">
             <div>
@@ -228,6 +222,29 @@ export function SiteShell({ content }: SiteShellProps) {
                   </span>
                 </div>
               </Link>
+            ))}
+          </div>
+        </section>
+
+        <section id="services" className="content-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Services</p>
+              <h2>What I do</h2>
+            </div>
+          </div>
+          <div className="card-grid">
+            {content.services.map((service) => (
+              <article key={service.title} className="feature-card">
+                <p className="card-index">0{content.services.indexOf(service) + 1}</p>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <ul className="feature-list">
+                  {service.outcomes.map((outcome) => (
+                    <li key={outcome}>{outcome}</li>
+                  ))}
+                </ul>
+              </article>
             ))}
           </div>
         </section>

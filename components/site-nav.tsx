@@ -23,8 +23,8 @@ export function SiteNav({ content, isHome }: SiteNavProps) {
         </span>
       </Link>
       <nav className="main-nav">
-        <Link href={sectionHref(isHome, "services")}>Services</Link>
         <Link href={sectionHref(isHome, "projects")}>Projects</Link>
+        <Link href={sectionHref(isHome, "services")}>Services</Link>
         <Link href={sectionHref(isHome, "experience")}>Experience</Link>
         <Link href="/academia">Academia</Link>
       </nav>
@@ -43,8 +43,8 @@ export function SiteNav({ content, isHome }: SiteNavProps) {
           <span></span>
         </summary>
         <div className="mobile-nav-panel">
-          <Link href={sectionHref(isHome, "services")}>Services</Link>
           <Link href={sectionHref(isHome, "projects")}>Projects</Link>
+          <Link href={sectionHref(isHome, "services")}>Services</Link>
           <Link href={sectionHref(isHome, "experience")}>Experience</Link>
           <Link href="/academia">Academia</Link>
           <a
