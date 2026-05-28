@@ -224,7 +224,12 @@ export function SiteShell({ content }: SiteShellProps) {
           </div>
           <div className="project-list">
             {content.projects.map((project) => (
-              <article key={project.slug} className={`project-card project-${project.slug}`}>
+              <Link
+                key={project.slug}
+                className={`project-card project-${project.slug}`}
+                href={`/projects/${project.slug}`}
+                aria-label={`Read ${project.name} case study`}
+              >
                 <div className="project-image">
                   <Image src={project.image} alt={project.name} width={900} height={640} />
                   <span className="project-category">{project.category}</span>
@@ -242,11 +247,11 @@ export function SiteShell({ content }: SiteShellProps) {
                       ))}
                     </div>
                   </div>
-                  <Link className="project-case-study-link" href={`/projects/${project.slug}`}>
+                  <span className="project-case-study-link">
                     Read case study <span aria-hidden="true">-&gt;</span>
-                  </Link>
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </section>

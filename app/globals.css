@@ -421,11 +421,12 @@ p {
 .hero-section {
   position: relative;
   overflow: hidden;
-  padding: 34px;
-  border-radius: 34px;
+  padding: clamp(28px, 4vw, 52px);
+  border-radius: 38px;
   background:
-    radial-gradient(circle at top left, rgba(86, 194, 255, 0.14), transparent 24%),
-    linear-gradient(180deg, rgba(8, 16, 30, 0.96), rgba(9, 18, 34, 0.92));
+    radial-gradient(circle at 16% 12%, rgba(86, 194, 255, 0.2), transparent 25%),
+    radial-gradient(circle at 80% 12%, rgba(95, 140, 255, 0.14), transparent 24%),
+    linear-gradient(135deg, rgba(5, 11, 21, 0.98), rgba(11, 22, 40, 0.94) 55%, rgba(6, 13, 25, 0.98));
   border-color: rgba(86, 194, 255, 0.16);
 }
 
@@ -445,8 +446,8 @@ p {
 }
 
 .hero-copy h1 {
-  font-size: clamp(2.6rem, 6.2vw, 5rem);
-  max-width: 9.5ch;
+  font-size: clamp(3rem, 6.5vw, 5.7rem);
+  max-width: 11.6ch;
 }
 
 .hero-summary {
@@ -509,11 +510,14 @@ p {
 .hero-card {
   position: relative;
   min-height: 100%;
-  border-radius: 30px;
+  border-radius: 34px;
   border: 1px solid rgba(86, 194, 255, 0.18);
-  background: radial-gradient(circle at top, rgba(86, 194, 255, 0.12), transparent 35%), rgba(9, 17, 31, 0.96);
+  background:
+    radial-gradient(circle at top, rgba(86, 194, 255, 0.16), transparent 35%),
+    rgba(9, 17, 31, 0.96);
   overflow: hidden;
   animation: floatCard 6s ease-in-out infinite;
+  box-shadow: 0 28px 70px rgba(2, 8, 23, 0.36);
 }
 
 .hero-image-wrap {
@@ -714,9 +718,65 @@ p {
 
 #about {
   background:
-    linear-gradient(135deg, rgba(9, 20, 36, 0.96), rgba(7, 15, 28, 0.92)),
-    rgba(9, 17, 31, 0.88);
-  border-color: rgba(125, 160, 209, 0.13);
+    radial-gradient(circle at 12% 18%, rgba(86, 194, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, #dfe8f1, #b8c8dc 62%, #91a9c2);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 30px 70px rgba(2, 8, 23, 0.24);
+  overflow: hidden;
+}
+
+#about::after {
+  content: "AI SYSTEMS";
+  position: absolute;
+  right: -0.12em;
+  bottom: -0.2em;
+  color: rgba(7, 17, 31, 0.055);
+  font-size: clamp(4.8rem, 15vw, 12rem);
+  font-weight: 900;
+  line-height: 0.8;
+  pointer-events: none;
+}
+
+#about .eyebrow,
+#about h2,
+#about p,
+#about li {
+  color: #07111f;
+}
+
+#about .eyebrow::before {
+  background: linear-gradient(90deg, #0f766e, transparent);
+}
+
+#about h2 {
+  max-width: 11ch;
+  font-size: clamp(2.1rem, 4.3vw, 4.1rem);
+}
+
+#about .stacked-copy {
+  position: relative;
+  z-index: 1;
+}
+
+#about .stacked-copy > p {
+  color: rgba(7, 17, 31, 0.76);
+  font-size: 1.05rem;
+}
+
+#about .feature-list li {
+  color: rgba(7, 17, 31, 0.82);
+}
+
+#about .feature-list li::before {
+  background: linear-gradient(135deg, #0f766e, #2563eb);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.11);
+}
+
+#about .badge {
+  color: #07111f;
+  background: rgba(255, 255, 255, 0.46);
+  border-color: rgba(7, 17, 31, 0.12);
+  box-shadow: 0 10px 24px rgba(7, 17, 31, 0.08);
 }
 
 #projects {
@@ -746,8 +806,9 @@ p {
 
 #experience {
   background:
-    linear-gradient(180deg, rgba(10, 19, 33, 0.94), rgba(6, 13, 24, 0.96));
-  border-color: rgba(70, 211, 190, 0.14);
+    radial-gradient(circle at 0% 0%, rgba(70, 211, 190, 0.08), transparent 26%),
+    linear-gradient(180deg, rgba(6, 13, 24, 0.84), rgba(4, 10, 20, 0.94));
+  border-color: rgba(70, 211, 190, 0.12);
 }
 
 #services .eyebrow,
@@ -771,22 +832,24 @@ p {
 
 #approach {
   background:
-    radial-gradient(circle at top left, rgba(86, 194, 255, 0.16), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(124, 92, 255, 0.14), transparent 40%),
-    linear-gradient(180deg, rgba(17, 24, 39, 0.96), rgba(27, 36, 56, 0.94));
-  border-color: rgba(110, 168, 255, 0.18);
+    linear-gradient(90deg, rgba(86, 194, 255, 0.08), transparent 36%),
+    linear-gradient(180deg, rgba(7, 15, 28, 0.78), rgba(10, 19, 34, 0.92));
+  border-color: rgba(110, 168, 255, 0.12);
 }
 
 #principles {
   background:
-    linear-gradient(180deg, rgba(12, 23, 38, 0.96), rgba(8, 17, 31, 0.94));
-  border-color: rgba(125, 160, 209, 0.16);
+    radial-gradient(circle at 12% 18%, rgba(86, 194, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, #dfe8f1, #b8c8dc 62%, #91a9c2);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 30px 70px rgba(2, 8, 23, 0.2);
 }
 
 #testimonials {
   background:
-    linear-gradient(180deg, rgba(9, 17, 31, 0.98), rgba(14, 21, 34, 0.94));
-  border-color: rgba(245, 158, 11, 0.13);
+    linear-gradient(135deg, rgba(246, 196, 83, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(9, 17, 31, 0.9), rgba(7, 13, 24, 0.96));
+  border-color: rgba(246, 196, 83, 0.12);
 }
 
 #contact {
@@ -814,6 +877,84 @@ p {
 #approach .feature-card li,
 #approach .card-index {
   color: rgba(226, 236, 255, 0.8);
+}
+
+#approach .card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  counter-reset: approach;
+}
+
+#approach .feature-card {
+  min-height: 260px;
+  border-radius: 26px 26px 6px 6px;
+  border-top: 5px solid #56c2ff;
+  background:
+    linear-gradient(180deg, rgba(86, 194, 255, 0.16), rgba(86, 194, 255, 0.03) 42%, transparent),
+    rgba(8, 16, 30, 0.76);
+  box-shadow: 0 22px 48px rgba(2, 8, 23, 0.24);
+}
+
+#approach .feature-card:nth-child(2) {
+  border-top-color: #a78bfa;
+  background:
+    linear-gradient(180deg, rgba(167, 139, 250, 0.16), rgba(167, 139, 250, 0.03) 42%, transparent),
+    rgba(8, 16, 30, 0.76);
+}
+
+#approach .feature-card:nth-child(3) {
+  border-top-color: #5ee39b;
+  background:
+    linear-gradient(180deg, rgba(94, 227, 155, 0.16), rgba(94, 227, 155, 0.03) 42%, transparent),
+    rgba(8, 16, 30, 0.76);
+}
+
+#approach .card-index {
+  margin-bottom: 28px;
+}
+
+#principles .card-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#principles .eyebrow,
+#principles .section-heading h2,
+#principles .feature-card h3,
+#principles .feature-card p {
+  color: #07111f;
+}
+
+#principles .eyebrow::before {
+  background: linear-gradient(90deg, #0f766e, transparent);
+}
+
+#principles .feature-card {
+  min-height: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  border-color: rgba(7, 17, 31, 0.12);
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 12px 28px rgba(7, 17, 31, 0.08);
+}
+
+#principles .feature-card::before,
+#principles .feature-card::after {
+  display: none;
+}
+
+#principles .feature-card:hover {
+  transform: translateY(-3px);
+}
+
+#principles .feature-card h3 {
+  font-size: 1rem;
+  color: #07111f;
+}
+
+#principles .feature-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(7, 17, 31, 0.72);
 }
 
 .content-two-col,
@@ -984,6 +1125,66 @@ p {
   align-items: stretch;
 }
 
+#experience .timeline {
+  position: relative;
+  gap: 0;
+}
+
+#experience .timeline::before {
+  content: "";
+  position: absolute;
+  left: 180px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(70, 211, 190, 0.56), transparent);
+}
+
+#experience .timeline-item {
+  position: relative;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 34px;
+  padding: 24px 0 24px 34px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#experience .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 176px;
+  top: 34px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #66e3cf;
+  box-shadow: 0 0 0 7px rgba(102, 227, 207, 0.1), 0 0 30px rgba(102, 227, 207, 0.35);
+}
+
+#experience .timeline-item::after {
+  display: none;
+}
+
+#experience .timeline-item:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+#experience .timeline-period {
+  color: #66e3cf;
+}
+
+#experience .timeline-item h3 {
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+}
+
+#experience .timeline-item > p {
+  max-width: 58ch;
+  color: rgba(216, 229, 248, 0.78);
+}
+
 .project-card {
   --project-accent: #56c2ff;
   --project-accent-2: #5f8cff;
@@ -1001,6 +1202,7 @@ p {
   border: 1px solid rgba(148, 163, 184, 0.12);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   box-shadow: 0 18px 42px rgba(2, 8, 23, 0.2);
   transition:
     transform 0.32s ease,
@@ -1021,6 +1223,11 @@ p {
 .project-card:hover {
   border-color: var(--project-accent-line);
   box-shadow: 0 26px 60px rgba(2, 8, 23, 0.34), 0 0 0 1px var(--project-accent-line);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--project-accent) 68%, white);
+  outline-offset: 4px;
 }
 
 .project-card:hover::before {
@@ -1366,6 +1573,48 @@ p {
 
 .quote-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#testimonials .quote-grid {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 18px;
+}
+
+#testimonials .quote-card:first-child {
+  grid-row: span 2;
+}
+
+#testimonials .quote-card {
+  display: grid;
+  align-content: space-between;
+  min-height: 210px;
+  border: 0;
+  border-radius: 0;
+  border-left: 1px solid rgba(246, 196, 83, 0.34);
+  background: transparent;
+  box-shadow: none;
+  padding: 4px 0 4px 24px;
+}
+
+#testimonials .quote-card::before,
+#testimonials .quote-card::after {
+  display: none;
+}
+
+#testimonials .quote-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(246, 196, 83, 0.52);
+}
+
+#testimonials .quote-card p:first-child {
+  color: #f8fbff;
+  font-size: clamp(1.15rem, 2vw, 1.85rem);
+  line-height: 1.35;
+}
+
+#testimonials .quote-card:not(:first-child) p:first-child {
+  font-size: 1.02rem;
 }
 
 .quote-card footer {
@@ -2145,6 +2394,33 @@ select:focus {
 
   .project-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #experience .timeline-item {
+    grid-template-columns: 1fr;
+  }
+
+  #experience .timeline::before {
+    left: 12px;
+  }
+
+  #experience .timeline-item {
+    padding-left: 38px;
+    gap: 10px;
+  }
+
+  #experience .timeline-item::before {
+    left: 8px;
+  }
+
+  #testimonials .quote-grid,
+  #approach .card-grid,
+  #principles .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #testimonials .quote-card:first-child {
+    grid-row: auto;
   }
 }
 
