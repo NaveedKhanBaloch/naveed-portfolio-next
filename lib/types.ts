@@ -40,6 +40,7 @@ export type Project = {
   description: string;
   impact: string;
   image: string;
+  features: string[];
   tech: string[];
   href?: string;
   caseStudy?: {

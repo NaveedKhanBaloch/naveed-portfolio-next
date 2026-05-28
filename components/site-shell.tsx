@@ -230,14 +230,17 @@ export function SiteShell({ content }: SiteShellProps) {
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
                   <p className="project-impact">{project.impact}</p>
-                  <div className="tag-row">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className="tag">
-                        {tech}
-                      </span>
-                    ))}
+                  <div className="project-tech-block">
+                    <span>Product capabilities</span>
+                    <div className="project-tech-list">
+                      {(project.features?.length ? project.features : project.tech).map((feature) => (
+                        <span key={feature} className="project-tech-pill">
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <Link className="button button-secondary project-link" href={`/projects/${project.slug}`}>
+                  <Link className="project-case-study-link" href={`/projects/${project.slug}`}>
                     Read case study
                   </Link>
                 </div>

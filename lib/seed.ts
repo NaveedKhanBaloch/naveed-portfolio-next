@@ -92,10 +92,11 @@ export const seedPortfolioContent: PortfolioContent = {
       name: "AI Research Reviewer",
       category: "Research Automation",
       description:
-        "A live pre-submission manuscript review platform that helps researchers identify reviewer concerns, quality signals, and improvement areas before journal or conference submission.",
-      impact: "Gives authors structured AI feedback, review history, manuscript status tracking, and downloadable decision-support reports.",
+        "Researchers upload manuscripts and receive structured AI feedback before journal, conference, or supervisor submission.",
+      impact: "Turns uploaded manuscripts into structured review feedback, improvement signals, and downloadable decision-support reports.",
       image: "/images/research-reviewer.png",
-      tech: ["React", "AI Review Workflows", "Manuscript Analysis", "Report Generation"],
+      features: ["Manuscript Review", "Reviewer Concerns", "Review History", "Downloadable Reports"],
+      tech: ["Next.js", "React", "AI Review Workflows", "Report Generation"],
       href: "https://reviewer.plenware.cloud/",
       caseStudy: {
         clientType: "Researchers, PhD scholars, supervisors, labs, and academic writing teams",
@@ -196,10 +197,11 @@ export const seedPortfolioContent: PortfolioContent = {
       name: "Freja AI",
       category: "Voice AI for Restaurants",
       description:
-        "A live AI voice-ordering platform for Nordic pizza restaurants that answers calls, captures multilingual orders, and sends clean tickets to the kitchen.",
-      impact: "Helps restaurants reduce missed calls, protect direct customer relationships, and handle rush-hour phone orders without pulling staff away from food prep.",
+        "Restaurant teams use AI voice ordering to answer calls, capture multilingual orders, and route kitchen-ready tickets.",
+      impact: "Helps restaurants recover missed calls and handle rush-hour phone orders without pulling staff away from service.",
       image: "/images/freja-ai.png",
-      tech: ["Next.js", "Voice AI", "ElevenLabs", "Restaurant Automation", "Multilingual UX"],
+      features: ["Voice Ordering", "Multilingual Calls", "Kitchen Tickets", "Call Analytics"],
+      tech: ["Next.js", "React", "ElevenLabs", "Voice AI", "Dashboard UX"],
       href: "https://freja.plenware.cloud/",
       caseStudy: {
         clientType: "Pizza restaurants, quick-service operators, and hospitality SaaS founders",
@@ -300,10 +302,11 @@ export const seedPortfolioContent: PortfolioContent = {
       name: "LearnoviaX",
       category: "Adaptive Learning Platform",
       description:
-        "A live adaptive AI learning platform that creates personalized learning paths, tracks progress, supports quizzes, and uses collaborative AI agents to guide students toward mastery.",
-      impact: "Turns static course browsing into a personalized learning journey with diagnostics, adaptive roadmaps, learner dashboards, certificates, and AI tutor-style guidance.",
+        "Personalized learning paths, quizzes, progress tracking, and AI tutor agents guide students toward measurable mastery.",
+      impact: "Turns static course browsing into a measurable learning flow with diagnostics, roadmaps, dashboards, and certificates.",
       image: "/images/learnoviax.png",
-      tech: ["React", "Supabase", "Adaptive Learning", "AI Agents", "EdTech SaaS"],
+      features: ["Adaptive Paths", "AI Tutor Agents", "Quizzes", "Certificates"],
+      tech: ["Next.js", "React", "Supabase", "AI Agents", "Adaptive Learning"],
       href: "https://www.learnoviax.dev/",
       caseStudy: {
         clientType: "Students, self-learners, online education teams, and EdTech founders",
@@ -401,13 +404,14 @@ export const seedPortfolioContent: PortfolioContent = {
     },
     {
       slug: "recrubotx",
-      name: "RecrubotX",
+      name: "Interveuu",
       category: "Hiring Intelligence",
       description:
-        "A live AI-powered hiring platform for recruiters and candidates, covering job postings, resume screening, AI interviews, candidate reports, and admin oversight.",
-      impact: "Turns fragmented hiring tasks into one workflow with CV batch screening, weighted candidate rankings, interview reports, resume tools, and recruiter dashboards.",
+        "Recruiters manage job posts, screen resumes, run AI interviews, and review candidate reports from one hiring workspace.",
+      impact: "Combines CV screening, candidate rankings, interview reports, resume tools, and recruiter dashboards in one workflow.",
       image: "/images/recrubotx.png",
-      tech: ["React", "AI Interviews", "Resume Screening", "PDF Reports", "Recruitment SaaS"],
+      features: ["Resume Screening", "AI Interviews", "Candidate Rankings", "PDF Reports"],
+      tech: ["Next.js", "React", "AI Interviews", "PDF Generation", "Admin Dashboards"],
       href: "https://recrubotx.vercel.app/",
       caseStudy: {
         clientType: "Recruiters, HR teams, job platforms, and hiring automation founders",
@@ -416,7 +420,7 @@ export const seedPortfolioContent: PortfolioContent = {
         team: "Built around recruiter operations, candidate experience, and administrative monitoring",
         status: "Live product",
         overview:
-          "RecrubotX, shipped publicly as Interveuu, is a live AI-powered interview and recruitment platform. It gives recruiters tools for job posting, resume analysis, CV batch screening, candidate rankings, AI interview reports, and downloadable evaluation PDFs while giving candidates a portal for jobs, interviews, resume building, and profile management.",
+          "Interveuu is a live AI-powered interview and recruitment platform. It gives recruiters tools for job posting, resume analysis, CV batch screening, candidate rankings, AI interview reports, and downloadable evaluation PDFs while giving candidates a portal for jobs, interviews, resume building, and profile management.",
         challenge:
           "Hiring teams often move between job descriptions, resumes, interview notes, candidate scoring sheets, and manual reports. The challenge was to bring those steps into one AI-assisted platform while keeping recruiters in control of screening criteria, interview outcomes, and final decisions.",
         goals: [
@@ -506,12 +510,13 @@ export const seedPortfolioContent: PortfolioContent = {
     },
     {
       slug: "doctor-botx",
-      name: "Doctor BotX",
+      name: "ClinIQ Assist",
       category: "Healthcare AI",
       description:
-        "A clinical assistant powered by retrieval workflows, speech integration, and conversational decision support.",
-      impact: "Improved access to structured medical knowledge during clinician workflows.",
+        "Source-grounded clinical knowledge, speech input, and safety-aware summaries come together for clinician support workflows.",
+      impact: "Organizes retrieval, safety boundaries, and clinician review into a clearer medical decision-support workflow.",
       image: "/images/doctor-botx-ui.png",
+      features: ["Clinical RAG", "Speech Input", "Source Grounding", "Safety Boundaries"],
       tech: ["LangGraph", "Qdrant", "Whisper", "RAG"],
       caseStudy: {
         clientType: "Healthcare founders, clinical workflow teams, and medical AI products",
@@ -520,7 +525,7 @@ export const seedPortfolioContent: PortfolioContent = {
         team: "Collaborated around clinical knowledge access, product flow, and technical feasibility",
         status: "Featured portfolio case study",
         overview:
-          "Doctor BotX was designed as a clinical assistant that helps healthcare professionals access structured medical knowledge through retrieval-augmented conversation, speech input, and workflow-aware summaries. The goal was to support faster information access while keeping safety, transparency, and professional review at the center.",
+          "ClinIQ Assist was designed as a clinical assistant that helps healthcare professionals access structured medical knowledge through retrieval-augmented conversation, speech input, and workflow-aware summaries. The goal was to support faster information access while keeping safety, transparency, and professional review at the center.",
         challenge:
           "Healthcare AI systems must be useful without overstating certainty. The challenge was to design a conversational assistant that retrieves relevant knowledge, makes uncertainty visible, and supports clinician workflows without presenting itself as an autonomous diagnostic authority.",
         goals: [
@@ -612,9 +617,10 @@ export const seedPortfolioContent: PortfolioContent = {
       name: "Bokafy",
       category: "Hospitality SaaS",
       description:
-        "A booking and operations platform using conversational AI for reservations, real-time updates, and smart table management.",
-      impact: "Unified web, chat, and voice bookings into one operational flow.",
+        "Conversational booking flows connect guest reservations, real-time availability, and staff table management.",
+      impact: "Unifies web, chat, and voice bookings into one staff-friendly operational flow.",
       image: "/images/bokafy-ui.png",
+      features: ["AI Booking", "Table Management", "Guest Channels", "Reservation Dashboard"],
       tech: ["React", "Node.js", "Pinecone", "Supabase"],
       caseStudy: {
         clientType: "Restaurants, hospitality operators, and SaaS founders",

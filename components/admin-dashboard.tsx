@@ -265,6 +265,39 @@ export function AdminDashboard({
                   }
                   placeholder="Description"
                 />
+                <textarea
+                  rows={2}
+                  value={project.impact}
+                  onChange={(event) =>
+                    updateProject(index, {
+                      ...project,
+                      impact: event.target.value
+                    })
+                  }
+                  placeholder="Impact statement"
+                />
+                <textarea
+                  rows={4}
+                  value={project.features.join("\n")}
+                  onChange={(event) =>
+                    updateProject(index, {
+                      ...project,
+                      features: event.target.value.split("\n").filter(Boolean)
+                    })
+                  }
+                  placeholder="Product capabilities, one per line"
+                />
+                <textarea
+                  rows={4}
+                  value={project.tech.join("\n")}
+                  onChange={(event) =>
+                    updateProject(index, {
+                      ...project,
+                      tech: event.target.value.split("\n").filter(Boolean)
+                    })
+                  }
+                  placeholder="Implementation stack, one per line"
+                />
                 <input
                   value={project.image}
                   onChange={(event) =>
