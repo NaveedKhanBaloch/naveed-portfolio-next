@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPortfolioContent } from "@/lib/storage";
 import { seedPortfolioContent } from "@/lib/seed";
+import { SiteNav } from "@/components/site-nav";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -48,6 +49,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
 
   return (
     <div className="simple-page case-study-page">
+      <SiteNav content={content} />
       <header className="case-study-hero">
         <Link href="/#projects" className="text-link">
           Back to projects

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPortfolioContent } from "@/lib/storage";
+import { SiteNav } from "@/components/site-nav";
 
 export default async function AcademiaPage() {
   const content = await getPortfolioContent();
@@ -7,6 +8,7 @@ export default async function AcademiaPage() {
 
   return (
     <div className="simple-page">
+      <SiteNav content={content} />
       <header className="simple-header">
         <Link href="/" className="text-link">
           Back to portfolio

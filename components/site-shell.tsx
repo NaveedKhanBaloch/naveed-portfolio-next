@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { PortfolioContent } from "@/lib/types";
+import { SiteNav } from "@/components/site-nav";
 
 type SiteShellProps = {
   content: PortfolioContent;
@@ -49,50 +50,7 @@ export function SiteShell({ content }: SiteShellProps) {
         <span className="backdrop-grid"></span>
       </div>
 
-      <header className="site-header">
-        <Link href="/" className="brand">
-          <span className="brand-mark">NK</span>
-          <span>
-            <strong>{content.hero.name}</strong>
-            <small>{content.hero.title}</small>
-          </span>
-        </Link>
-        <nav className="main-nav">
-          <a href="#services">Services</a>
-          <a href="#projects">Projects</a>
-          <a href="#experience">Experience</a>
-          <Link href="/academia">Academia</Link>
-        </nav>
-        <a
-          className="button button-primary"
-          href={content.hero.primaryCtaHref}
-          target={primaryCtaIsExternal ? "_blank" : undefined}
-          rel={primaryCtaIsExternal ? "noreferrer" : undefined}
-        >
-          Book a Call
-        </a>
-        <details className="mobile-nav">
-          <summary className="mobile-nav-toggle" aria-label="Open navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </summary>
-          <div className="mobile-nav-panel">
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <Link href="/academia">Academia</Link>
-            <a
-              className="button button-primary mobile-nav-cta"
-              href={content.hero.primaryCtaHref}
-              target={primaryCtaIsExternal ? "_blank" : undefined}
-              rel={primaryCtaIsExternal ? "noreferrer" : undefined}
-            >
-              Book a Call
-            </a>
-          </div>
-        </details>
-      </header>
+      <SiteNav content={content} isHome />
 
       <main>
         <section className="hero-section">
