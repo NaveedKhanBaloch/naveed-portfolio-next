@@ -322,22 +322,30 @@ p {
   box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
 }
 
-.mobile-nav-panel a {
+.mobile-nav .mobile-nav-panel a,
+.site-header .mobile-nav-panel a {
   padding: 10px 12px;
   border-radius: 12px;
-  color: var(--muted-strong);
+  color: #07111f !important;
+  font-weight: 700;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.mobile-nav-panel a:hover {
+.mobile-nav .mobile-nav-panel a:hover,
+.site-header .mobile-nav-panel a:hover {
   background: rgba(86, 194, 255, 0.1);
-  color: var(--ink);
+  color: #06101e !important;
 }
 
 .mobile-nav-cta {
   width: 100%;
   justify-content: center;
   margin-top: 6px;
+}
+
+.mobile-nav .mobile-nav-panel .mobile-nav-cta,
+.site-header .mobile-nav-panel .mobile-nav-cta {
+  color: #f8fbff !important;
 }
 
 .footer-icon-link {
@@ -3067,9 +3075,9 @@ select:focus {
     display: none;
   }
 
-.mobile-nav {
-  display: block;
-  justify-self: end;
+  .mobile-nav {
+    display: block;
+    justify-self: end;
   }
 
   .hero-section,
@@ -3091,27 +3099,53 @@ select:focus {
   }
 
   .cta-panel {
-    text-align: center;
-    justify-items: center;
-    gap: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 16px;
   }
 
   .cta-panel .eyebrow {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .cta-actions {
     width: 100%;
-    display: grid;
-    gap: 12px;
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
   }
 
   .cta-actions .button {
-    width: min(100%, 320px);
+    width: auto;
     justify-content: center;
     text-align: center;
-    padding-inline: 20px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+  }
+
+  #contact {
+    align-items: stretch;
+  }
+
+  #contact > div:first-child {
+    width: 100%;
+    max-width: none;
+  }
+
+  #contact h2,
+  #contact p {
+    text-align: left;
+  }
+
+  #contact .cta-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  #contact .cta-actions .button {
+    min-height: 42px;
   }
 
   .site-footer {
@@ -3139,9 +3173,13 @@ select:focus {
 
   .case-study-actions,
   .case-study-actions .button {
-    width: 100%;
+    width: auto;
     justify-content: center;
     text-align: center;
+  }
+
+  .case-study-actions {
+    justify-content: flex-start;
   }
 
   .architecture-step {
