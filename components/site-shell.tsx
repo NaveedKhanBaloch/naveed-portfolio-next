@@ -217,6 +217,9 @@ export function SiteShell({ content }: SiteShellProps) {
             <div>
               <p className="eyebrow">Projects</p>
               <h2>Featured work</h2>
+              <p className="section-summary">
+                A focused selection of AI products with live demos, case studies, and practical workflows.
+              </p>
             </div>
           </div>
           <div className="project-list">
@@ -224,12 +227,11 @@ export function SiteShell({ content }: SiteShellProps) {
               <article key={project.slug} className={`project-card project-${project.slug}`}>
                 <div className="project-image">
                   <Image src={project.image} alt={project.name} width={900} height={640} />
+                  <span className="project-category">{project.category}</span>
                 </div>
                 <div className="project-copy">
-                  <span className="project-category">{project.category}</span>
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
-                  <p className="project-impact">{project.impact}</p>
                   <div className="project-tech-block">
                     <span>Product capabilities</span>
                     <div className="project-tech-list">
@@ -241,7 +243,7 @@ export function SiteShell({ content }: SiteShellProps) {
                     </div>
                   </div>
                   <Link className="project-case-study-link" href={`/projects/${project.slug}`}>
-                    Read case study
+                    Read case study <span aria-hidden="true">-&gt;</span>
                   </Link>
                 </div>
               </article>
