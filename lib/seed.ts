@@ -13,7 +13,7 @@ export const seedPortfolioContent: PortfolioContent = {
     primaryCtaHref: "https://calendly.com/naveedk09/30min",
     secondaryCtaLabel: "Download CV",
     secondaryCtaHref: "/data/NaveedCV.pdf",
-    image: "/images/Latest.webp",
+    image: "/images/portfolio.png",
     badges: [
       "PhD in Computer Engineering",
       "20+ peer-reviewed publications",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ContactForm } from "@/components/contact-form";
 import type { PortfolioContent } from "@/lib/types";
 import { SiteNav } from "@/components/site-nav";
 
@@ -326,24 +327,24 @@ export function SiteShell({ content }: SiteShellProps) {
         </section>
 
         <section id="contact" className="cta-panel">
-          <div>
-            <p className="eyebrow">Contact</p>
-            <h2>Let&apos;s build together</h2>
-            <p>
-              Let&apos;s discuss your idea, architecture, or current implementation and shape the next phase with clarity.
-            </p>
+          <div className="contact-copy">
+            <div>
+              <p className="eyebrow">Contact</p>
+              <h2>Let&apos;s build together</h2>
+              <p>
+                Let&apos;s discuss your idea, architecture, or current implementation and shape the next phase with clarity.
+              </p>
+            </div>
           </div>
-          <div className="cta-actions">
+          <div className="contact-form-wrap">
+            <ContactForm />
             <a
-              className="button button-primary"
+              className="contact-schedule-link"
               href={content.contact.calendarHref}
               target={calendarIsExternal ? "_blank" : undefined}
               rel={calendarIsExternal ? "noreferrer" : undefined}
             >
-              Schedule a Call
-            </a>
-            <a className="button button-secondary" href={content.contact.cvHref}>
-              Download CV
+              Prefer a call? Schedule a conversation
             </a>
           </div>
         </section>
