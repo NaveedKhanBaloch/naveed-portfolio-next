@@ -17,6 +17,23 @@ function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function getSenderEmail(configuredFromEmail: string | undefined, fallbackEmail: string) {
+  const fromEmail = cleanText(configuredFromEmail)
+    .replaceAll('\\"', '"')
+    .replace(/^["']+|["']+$/g, "");
+  const bracketEmail = fromEmail.match(/<([^<>]+)>/)?.[1]?.trim();
+
+  if (bracketEmail && isValidEmail(bracketEmail)) {
+    return fromEmail;
+  }
+
+  if (isValidEmail(fromEmail)) {
+    return fromEmail;
+  }
+
+  return fallbackEmail;
+}
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -51,7 +68,7 @@ export async function POST(request: Request) {
 
   const resendApiKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.CONTACT_TO_EMAIL ?? "naveedk09@gmail.com";
-  const fromEmail = process.env.CONTACT_FROM_EMAIL ?? "Portfolio Contact <onboarding@resend.dev>";
+  const fromEmail = getSenderEmail(process.env.CONTACT_FROM_EMAIL, toEmail);
 
   if (!resendApiKey) {
     return NextResponse.json(
