@@ -85,6 +85,14 @@ export async function POST(request: Request) {
   });
 
   if (!response.ok) {
+    const errorBody = await response.text();
+    console.error("Resend email send failed.", {
+      status: response.status,
+      body: errorBody,
+      fromEmail,
+      toEmail
+    });
+
     return NextResponse.json(
       { error: "The message could not be sent right now. Please try again or schedule a call." },
       { status: 502 }
