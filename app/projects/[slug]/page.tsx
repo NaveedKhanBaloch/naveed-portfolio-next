@@ -327,8 +327,6 @@ const projectPresentations: Record<string, ProjectCaseStudyPresentation> = {
   "yogasana-ai": {
     proof: ["Real-Time Pose Estimation", "Edge Computer Vision", "Mobile Fitness SaaS"],
     wordmark: "VISION AI",
-    primaryCtaLabel: "Launch Interactive Demo",
-    primaryCtaHref: "#product-capabilities",
     valueHeading: "Real-time alignment assistance built for personal practice.",
     valueCards: [
       {
