@@ -6,8 +6,8 @@ export const seedPortfolioContent: PortfolioContent = {
     title: "AI Systems Architect",
     subtitle: "Building reliable AI systems for real products.",
     summary:
-      "I help startups and established teams launch dependable AI systems, from strategy and prototyping to production deployment, with a focus on healthcare, automation, hiring, and intelligent SaaS.",
-    location: "Taxila, Pakistan",
+      "I help startups, research teams, and established organizations build dependable AI systems, from computer vision and edge AI to LLM agents, RAG, multimodal applications, and production deployment.",
+    location: "Islamabad, Pakistan",
     availability: "Available for consulting, fractional AI leadership, and build partnerships.",
     primaryCtaLabel: "Book a 30-Min Strategy Call",
     primaryCtaHref: "https://calendly.com/naveedk09/30min",
@@ -17,13 +17,17 @@ export const seedPortfolioContent: PortfolioContent = {
     badges: [
       "PhD in Computer Engineering",
       "20+ peer-reviewed publications",
-      "Top-Rated Plus AI Engineer"
+      "Top-Rated AI Engineer",
+      "50+ AI projects supervised"
     ],
     stack: [
       "Python",
       "PyTorch",
+      "TensorFlow",
+      "OpenCV",
       "LangGraph",
       "OpenAI",
+      "NVIDIA Jetson",
       "AWS",
       "Docker",
       "Supabase"
@@ -32,10 +36,13 @@ export const seedPortfolioContent: PortfolioContent = {
   about: {
     headline: "Bridging research depth with business-ready execution.",
     summary:
-      "My work sits at the intersection of AI research, product strategy, and engineering delivery. I design systems that are explainable, scalable, and useful in the real world, whether that means multi-agent workflows, retrieval-augmented generation, evaluation pipelines, or AI product roadmaps for growing teams.",
+      "My work sits at the intersection of AI research, product strategy, and engineering delivery. I design systems that are explainable, scalable, and useful in the real world, spanning computer vision, edge deployment, multi-agent workflows, retrieval-augmented generation, multimodal AI, evaluation pipelines, and AI product roadmaps.",
     highlights: [
       "Built production AI systems for clients across the USA, Canada, and Europe.",
+      "Developed object detection, image segmentation, pose estimation, activity recognition, and video analytics systems for edge hardware.",
+      "Improved radiology impression generation by 12% in ROUGE-L against reported literature benchmarks, with clinical expert validation.",
       "Led academic research and mentorship while staying hands-on with modern AI delivery.",
+      "Supervised more than 50 AI-driven student projects across computer vision, healthcare AI, NLP, robotics, and machine learning.",
       "Designed healthcare, EdTech, recruitment, and automation products with measurable outcomes.",
       "Comfortable across architecture, experimentation, APIs, deployment, and stakeholder communication."
     ]
@@ -83,6 +90,15 @@ export const seedPortfolioContent: PortfolioContent = {
         "Backend APIs",
         "Data integrations",
         "Cloud-ready deployment"
+      ]
+    },
+    {
+      title: "Computer Vision & Edge AI",
+      description: "Developing real-time visual intelligence for video, robotics, healthcare, and resource-constrained edge devices.",
+      outcomes: [
+        "Detection and segmentation",
+        "Pose and activity recognition",
+        "NVIDIA Jetson deployment"
       ]
     }
   ],
@@ -715,56 +731,175 @@ export const seedPortfolioContent: PortfolioContent = {
           "Build role-based staff access for managers, hosts, and operators."
         ]
       }
+    },
+    {
+      slug: "yogasana-ai",
+      name: "YogAsana AI",
+      category: "Computer Vision & Mobile Health AI",
+      description:
+        "Real-time yoga posture correction, biomechanical alignment tracking, and joint-strain detection run directly on mobile hardware.",
+      impact:
+        "Makes guided, privacy-conscious yoga practice accessible through on-device pose estimation without specialized hardware or cloud video transfer.",
+      image: "/images/yogasana-ai.png",
+      features: ["Real-Time Pose Estimation", "Edge Computer Vision", "Mobile Fitness SaaS", "Joint Safety Guidance"],
+      tech: ["Flutter", "MediaPipe", "OpenPose", "Dart", "TensorFlow Lite", "Computer Vision", "Mobile Edge AI"],
+      caseStudy: {
+        clientType: "HealthTech startups, digital wellness platforms, virtual personal trainers, and solo yoga practitioners",
+        timeline: "Functional MVP and production-ready pipeline",
+        role: "AI Systems Architect, Mobile CV Engineer, and Flutter Developer",
+        team: "Designed across computer vision, biomechanical analysis, edge inference, and mobile product delivery",
+        status: "Live demo and edge pipeline deployed",
+        overview:
+          "YogAsana AI is an intelligent mobile application that provides real-time yoga posture correction, biomechanical alignment tracking, and joint-strain detection. Using edge computer vision, it guides safer independent practice without specialized hardware, external visual sensors, or cloud video streaming.",
+        challenge:
+          "Yoga practitioners often train without expert supervision. Incorrect form during complex postures such as Trikonasana or Chaturanga can create joint misalignment, spinal stress, and ligament strain, while conventional motion-capture systems remain too expensive and intrusive for personal use.",
+        goals: [
+          "Track full-body skeletal keypoints from a standard smartphone camera in real time.",
+          "Measure joint angles and posture stability against biomechanical pose templates.",
+          "Deliver immediate visual, audio, and haptic correction cues during practice.",
+          "Keep visual inference on the device to reduce latency and protect user privacy."
+        ],
+        constraints: [
+          "Inference had to remain responsive on mobile CPU, GPU, and NPU resources.",
+          "Pose tracking needed to remain useful during body twists, partial occlusion, and variable camera positioning.",
+          "Feedback had to be timely and understandable without overwhelming the user mid-pose.",
+          "Camera frames could not depend on continuous server-side video transfer."
+        ],
+        responsibilities: [
+          "Engineered hybrid pose-estimation pipelines balancing MediaPipe and OpenPose topologies for accurate skeletal keypoint inference.",
+          "Built real-time angular analysis algorithms to evaluate joint alignment and movement tolerances during live poses.",
+          "Implemented local mobile edge-inference routines in Flutter to eliminate server-side video-streaming latency.",
+          "Designed low-latency visual overlays and contextual audio alerts for mid-session posture correction."
+        ],
+        architecture: [
+          "Camera Stream Layer captures high-frame-rate video through Flutter camera-controller bindings.",
+          "Frame Preprocessing and ROI Layer crops, normalizes, and isolates regional bounding boxes for efficient inference.",
+          "Edge Keypoint Engine executes lightweight MediaPipe and OpenPose models on local mobile acceleration hardware.",
+          "Biomechanical Logic Layer calculates Euclidean vectors, joint-angle offsets, and posture-hold stability scores.",
+          "Visual Overlay and Feedback Layer renders skeletal guidance and delivers contextual audio and haptic cues."
+        ],
+        process: [
+          {
+            title: "Pose model evaluation",
+            description: "Compared mobile-friendly skeletal topologies for keypoint coverage, inference speed, and stability across yoga postures."
+          },
+          {
+            title: "Biomechanical rule design",
+            description: "Converted target pose geometry into joint-angle ranges, alignment tolerances, and safety-oriented correction rules."
+          },
+          {
+            title: "Edge optimization",
+            description: "Optimized frame preprocessing and local inference to sustain responsive feedback without cloud video processing."
+          },
+          {
+            title: "Mobile feedback integration",
+            description: "Connected model output to Flutter overlays, form scores, joint warnings, audio guidance, and session feedback."
+          }
+        ],
+        decisions: [
+          {
+            title: "On-device inference",
+            description: "Visual processing remains on the phone to reduce latency, avoid video transfer, and support privacy-conscious use."
+          },
+          {
+            title: "Joint-level guidance",
+            description: "Feedback identifies the affected joint and adjustment direction instead of returning only a generic pose score."
+          },
+          {
+            title: "Standard camera access",
+            description: "The workflow uses existing smartphone hardware rather than requiring wearables or external motion-capture sensors."
+          }
+        ],
+        outcomes: [
+          "Built an on-device computer vision workflow capable of real-time pose estimation at 30+ FPS on mobile hardware.",
+          "Mitigated visual privacy risks by running inference locally without cloud video transfer.",
+          "Delivered an end-to-end mobile architecture combining biomechanical pose calculations with smooth UI rendering.",
+          "Created a scalable foundation for fitness, rehabilitation, and athletic movement-tracking applications."
+        ],
+        deliverables: [
+          "Mobile pose-estimation pipeline",
+          "Biomechanical angle-analysis engine",
+          "Real-time skeleton and joint-warning overlays",
+          "Audio and haptic correction workflow",
+          "Flutter mobile application architecture"
+        ],
+        nextSteps: [
+          "Expand and validate pose templates with qualified yoga and rehabilitation professionals.",
+          "Benchmark inference performance across a wider range of Android and iOS devices.",
+          "Add longitudinal mobility, stability, and practice-quality trends with user-controlled local storage."
+        ]
+      }
     }
   ],
   experience: [
     {
-      role: "AI Engineer",
-      organization: "Independent Consulting",
+      role: "AI Engineer (Top Rated)",
+      organization: "Upwork",
       period: "2018 - Present",
       description:
-        "Architecting AI systems, LLM workflows, and product-ready automation for international clients."
+        "Architecting end-to-end computer vision, NLP, LLM, RAG, agentic AI, voice, booking, interviewing, and business automation systems for international clients."
     },
     {
       role: "AI and NLP Engineer",
       organization: "SkillSoft",
       period: "2021 - Present",
       description:
-        "Creating enterprise AI learning pathways and practical training for modern ML and NLP adoption."
+        "Architecting curricula, technical labs, and hands-on learning experiences in generative AI, machine learning, NLP, deep learning, MLOps, and production-oriented AI development."
+    },
+    {
+      role: "Co-Principal Investigator, SWARM Robotics Lab",
+      organization: "UET Taxila",
+      period: "2022 - Present",
+      description:
+        "Leading computer vision, edge AI, swarm robotics, drone perception, pose and activity recognition, video analytics, and NVIDIA Jetson research from experimentation through deployment."
     },
     {
       role: "Assistant Professor",
       organization: "UET Taxila",
       period: "2012 - Present",
       description:
-        "Teaching, mentoring, and publishing research in AI systems, intelligent computing, and applied machine learning."
+        "Researching and teaching AI, deep learning, computer vision, NLP, edge AI, and intelligent systems while supervising 50+ AI-driven student projects and publishing 20+ peer-reviewed papers."
     },
     {
       role: "AI Consultant",
       organization: "Bluell AB",
       period: "2024 - Present",
       description:
-        "Designing intelligent monitoring and automation solutions combining devices, analytics, and LLM-driven insights."
+        "Architecting LLM- and IoT-enabled automation, real-time edge monitoring, data pipelines, and event-driven intelligent decision systems for Swedish industrial partners."
+    },
+    {
+      role: "Computer Vision / Generative AI Engineer",
+      organization: "Augmented Startups",
+      period: "Mar 2022 - Jan 2023",
+      description:
+        "Developed GAN-based computer vision applications, neural style transfer, image super-resolution, photo enhancement, and deep learning experiments for visual generation and transformation."
+    },
+    {
+      role: "NLP Engineer",
+      organization: "Synthesis Health",
+      period: "Jan 2022 - Dec 2022",
+      description:
+        "Led a Transformer-based radiology assistant that generated clinical impressions from findings, improving ROUGE-L by 12% over reported benchmarks and incorporating clinical human-in-the-loop validation."
     }
   ],
   approach: [
     {
       phase: "Phase 1",
-      title: "Planning & Strategy",
+      title: "Discovery & AI Architecture",
       description:
-        "I collaborate to map out your goals, target audience, and key functionality so we can define the right site structure, flow, and content requirements."
+        "I translate the business or research problem into a practical AI roadmap, defining data needs, success metrics, model and tool choices, system architecture, safety boundaries, and a clear path from prototype to production."
     },
     {
       phase: "Phase 2",
-      title: "Development & Progress Update",
+      title: "Development & Evaluation",
       description:
-        "Once the direction is clear, I move into implementation and share progress along the way so you always know what is being built and why."
+        "I build and evaluate the core AI application, whether it involves computer vision, LLMs, RAG, agents, multimodal workflows, or edge AI, using measurable experiments, iterative validation, API integrations, and regular progress reviews."
     },
     {
       phase: "Phase 3",
-      title: "Deployment & Launch",
+      title: "Production Deployment & Iteration",
       description:
-        "I translate the approved design and functionality into a production-ready website and make sure launch and delivery are handled cleanly."
+        "I package the validated system into a reliable production workflow using APIs, Docker, cloud or edge infrastructure, monitoring, and human-in-the-loop controls, then refine it using real-world performance and stakeholder feedback."
     }
   ],
   principles: [
@@ -1040,7 +1175,7 @@ export const seedPortfolioContent: PortfolioContent = {
   },
   contact: {
     email: "naveedk09@gmail.com",
-    phone: "+92 333 555 0000",
+    phone: "+92 345 5924767",
     calendarHref: "https://calendly.com/naveedk09/30min",
     cvHref: "/data/NaveedCV.pdf"
   }

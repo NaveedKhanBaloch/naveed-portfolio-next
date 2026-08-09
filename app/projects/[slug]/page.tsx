@@ -21,6 +21,8 @@ type CaseStudyCard = {
 type ProjectCaseStudyPresentation = {
   proof: string[];
   wordmark: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
   valueHeading: string;
   valueCards: CaseStudyCard[];
   contributionHeading: string;
@@ -321,6 +323,60 @@ const projectPresentations: Record<string, ProjectCaseStudyPresentation> = {
     ctaHeading: "Need an AI booking product that reduces operational friction?",
     ctaCopy:
       "I can help design conversational booking flows, staff dashboards, reservation logic, and hospitality SaaS architecture."
+  },
+  "yogasana-ai": {
+    proof: ["Real-Time Pose Estimation", "Edge Computer Vision", "Mobile Fitness SaaS"],
+    wordmark: "VISION AI",
+    primaryCtaLabel: "Launch Interactive Demo",
+    primaryCtaHref: "#product-capabilities",
+    valueHeading: "Real-time alignment assistance built for personal practice.",
+    valueCards: [
+      {
+        label: "Business Problem",
+        title: "Incorrect form risks long-term musculoskeletal strain",
+        description:
+          "Yoga practitioners often practice independently without expert supervision. Poor form during complex postures such as Trikonasana or Chaturanga can lead to joint misalignment, spinal stress, and acute ligament injuries."
+      },
+      {
+        label: "Product Strategy",
+        title: "On-device biomechanical pose estimation",
+        description:
+          "The solution runs real-time skeleton tracking directly on mobile hardware, calculating joint-angle accuracy against anatomical baselines to provide immediate visual and audio alignment cues."
+      },
+      {
+        label: "Commercial Story",
+        title: "Accessible, private, hardware-free wellness",
+        description:
+          "Edge inference on the smartphone camera feed removes the need for expensive motion-capture wearables while keeping visual data on the user's device."
+      }
+    ],
+    contributionHeading: "From skeletal keypoint inference to smooth mobile UI feedback.",
+    capabilityDetails: [
+      {
+        title: "Real-time skeleton tracking",
+        description:
+          "Detects 33+ anatomical keypoints with continuous tracking designed for partial occlusion and complex body positions."
+      },
+      {
+        title: "Angle precision and form scoring",
+        description:
+          "Compares shoulder, hip, knee, and ankle vectors with target geometric templates to calculate a live posture-alignment score."
+      },
+      {
+        title: "Active injury prevention",
+        description:
+          "Highlights vulnerable joints when knee deflection, lumbar extension, or another tracked angle moves outside configured safety thresholds."
+      },
+      {
+        title: "Voice-guided form feedback",
+        description:
+          "Context-aware audio cues explain which movement to adjust while the user remains focused on the pose."
+      }
+    ],
+    architectureHeading: "Camera capture to instant pose feedback flow",
+    ctaHeading: "Need an AI vision workflow that turns camera feeds into real-time operational insights?",
+    ctaCopy:
+      "I can help define the edge computing architecture, optimize neural network inference on mobile devices, and build production-ready applications for real-world interactions."
   }
 };
 
@@ -412,6 +468,8 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
     ctaCopy:
       "I can help define the architecture, validate the workflow, and build the AI product with production constraints in mind."
   };
+  const primaryCtaHref = presentation.primaryCtaHref ?? project.href;
+  const primaryCtaLabel = presentation.primaryCtaLabel ?? "Open Live Product";
 
   return (
     <div className={`simple-page case-study-page featured-case-study project-${project.slug}`}>
@@ -429,9 +487,14 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
               ))}
             </div>
             <div className="case-study-actions">
-              {project.href ? (
-                <a className="button button-primary" href={project.href} target="_blank" rel="noreferrer">
-                  Open Live Product
+              {primaryCtaHref ? (
+                <a
+                  className="button button-primary"
+                  href={primaryCtaHref}
+                  target={primaryCtaHref.startsWith("http") ? "_blank" : undefined}
+                  rel={primaryCtaHref.startsWith("http") ? "noreferrer" : undefined}
+                >
+                  {primaryCtaLabel}
                 </a>
               ) : null}
               <a className="button button-secondary" href={content.hero.primaryCtaHref} target="_blank" rel="noreferrer">
@@ -440,7 +503,13 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
             </div>
           </div>
           <div className="featured-product-frame">
-            <Image src={project.image} alt={`${project.name} project interface`} width={1000} height={720} priority />
+            <Image
+              src={project.image}
+              alt={`${project.name} project interface`}
+              width={project.slug === "yogasana-ai" ? 1448 : 1000}
+              height={project.slug === "yogasana-ai" ? 1086 : 720}
+              priority
+            />
           </div>
         </div>
       </header>
@@ -497,7 +566,7 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
         </div>
       </section>
 
-      <section className="content-section featured-capabilities-section">
+      <section id="product-capabilities" className="content-section featured-capabilities-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">Product Capabilities</p>
@@ -563,9 +632,14 @@ export default async function ProjectCaseStudyPage({ params }: ProjectPageProps)
           <p>{presentation.ctaCopy}</p>
         </div>
         <div className="cta-actions">
-          {project.href ? (
-            <a className="button button-primary" href={project.href} target="_blank" rel="noreferrer">
-              Open Live Product
+          {primaryCtaHref ? (
+            <a
+              className="button button-primary"
+              href={primaryCtaHref}
+              target={primaryCtaHref.startsWith("http") ? "_blank" : undefined}
+              rel={primaryCtaHref.startsWith("http") ? "noreferrer" : undefined}
+            >
+              {primaryCtaLabel}
             </a>
           ) : null}
           <a className="button button-primary" href={content.contact.calendarHref} target="_blank" rel="noreferrer">

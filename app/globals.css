@@ -1543,7 +1543,7 @@ p {
 #experience .timeline::before {
   content: "";
   position: absolute;
-  left: 180px;
+  left: 220px;
   top: 8px;
   bottom: 8px;
   width: 1px;
@@ -1552,9 +1552,10 @@ p {
 
 #experience .timeline-item {
   position: relative;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 34px;
-  padding: 24px 0 24px 34px;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  padding: 24px 0;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -1564,7 +1565,7 @@ p {
 #experience .timeline-item::before {
   content: "";
   position: absolute;
-  left: 176px;
+  left: 216px;
   top: 34px;
   width: 9px;
   height: 9px;
@@ -2762,6 +2763,12 @@ select:focus {
   min-height: 520px;
   object-fit: cover;
   filter: saturate(1.03) contrast(1.02);
+}
+
+.project-yogasana-ai .featured-product-frame img {
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
 }
 
 .featured-snapshot {

@@ -42,7 +42,11 @@ export function SiteShell({ content }: SiteShellProps) {
   const capabilityStack = [
     {
       label: "AI & LLM",
-      tools: ["OpenAI", "LangGraph", "PyTorch"],
+      tools: ["OpenAI", "LangGraph", "RAG"],
+    },
+    {
+      label: "Vision & Edge",
+      tools: ["PyTorch", "OpenCV", "NVIDIA Jetson"],
     },
     {
       label: "Backend",
