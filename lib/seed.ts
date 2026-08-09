@@ -1150,21 +1150,21 @@ export const seedPortfolioContent: PortfolioContent = {
   testimonials: [
     {
       quote:
-        "Great research scientist and very easy to work with.",
-      author: "Client Feedback",
-      role: "Research Collaboration"
+        "A great research scientist to work with.",
+      author: "Raghu",
+      role: "Kryssalis Creators LLC"
     },
     {
       quote:
         "Delivered exactly what we needed and communicated clearly throughout the project. Very reliable and thoughtful in his approach.",
-      author: "Client Feedback",
-      role: "AI Product Client"
+      author: "Alyssa Leon",
+      role: "NextThought"
     },
     {
       quote:
         "Strong technical depth, quick to understand requirements, and professional from start to finish. I would gladly work with him again.",
-      author: "Client Feedback",
-      role: "International Client"
+      author: "Tony Philips",
+      role: "SkillSoft"
     }
   ],
   social: {
